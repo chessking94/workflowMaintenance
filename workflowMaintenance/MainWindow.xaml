@@ -9,7 +9,15 @@
     <Grid>
         <TabControl>
             <TabItem Header="Home" x:Name="tab_Home">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBox x:Name="txt_HomeDesc" Grid.Row="0" TextWrapping="Wrap" Text="Active Events" IsEnabled="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <DataGrid x:Name="dg_ActiveEvents" Grid.Row="1" IsEnabled="False" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                </Grid>
             </TabItem>
             <TabItem Header="Applications" x:Name="tab_Applications">
                 <Grid Background="#FFE5E5E5"/>
