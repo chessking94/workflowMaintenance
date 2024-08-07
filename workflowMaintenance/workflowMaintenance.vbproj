@@ -5,7 +5,12 @@
     <TargetFramework>net8.0-windows</TargetFramework>
     <RootNamespace>workflowMaintenance</RootNamespace>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>WF.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="WF.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <Import Include="System.Windows" />
