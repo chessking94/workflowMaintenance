@@ -48,8 +48,13 @@ Public Class MainWindow
 #End Region
 
 #Region "Application"
-    Private Sub Hyperlink_ApplicationID()
+    Private Sub Hyperlink_ApplicationID(sender As Object, e As RoutedEventArgs)
+        Dim hyperlink As Hyperlink = CType(sender, Hyperlink)
+        Dim run As Run = CType(hyperlink.Inlines.FirstInline, Run)
+        Dim hyperlinkValue As Integer = Convert.ToInt32(run.Text)
 
+        Dim appWindow As New UpdateApplicationWindow(hyperlinkValue)
+        appWindow.Show()
     End Sub
 
     Private Sub RefreshApplications() Handles tab_Applications.Loaded, btn_RefreshApp.Click

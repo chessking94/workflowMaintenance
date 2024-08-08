@@ -53,8 +53,8 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock>
-                                                <Hyperlink NavigateUri="{Binding ID}" RequestNavigate="Hyperlink_ApplicationID">
-                                                    <TextBlock Text="{Binding ID}" />
+                                                <Hyperlink Click="Hyperlink_ApplicationID">
+                                                    <Run Text="{Binding ID}" />
                                                 </Hyperlink>
                                             </TextBlock>
                                         </DataTemplate>
