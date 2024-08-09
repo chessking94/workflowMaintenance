@@ -62,6 +62,7 @@ Public Class MainWindow
             command.Connection = db_Connection
             command.CommandType = Data.CommandType.Text
             command.CommandText = modQueries.Applications()
+            command.Parameters.AddWithValue("@applicationID", -1)
 
             Dim dataTable As New DataTable()
             Dim adapter As New SqlDataAdapter(command)

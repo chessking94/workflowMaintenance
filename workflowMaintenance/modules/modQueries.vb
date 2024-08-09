@@ -28,6 +28,23 @@ applicationDefaultParameter AS [Default_Parameter],
 applicationActive AS [Active]
 
 FROM vwApplications
+
+WHERE applicationID = @applicationID OR ISNULL(@applicationID, -1) = -1
+"
+	End Function
+
+	Friend Function ColumnLengths() As String
+		Return _
+"
+SELECT
+column_name,
+character_maximum_length AS max_length
+
+FROM INFORMATION_SCHEMA.COLUMNS
+
+WHERE table_schema = @schemaName
+AND table_name = @tableName
+AND data_type = 'varchar'
 "
 	End Function
 End Module
