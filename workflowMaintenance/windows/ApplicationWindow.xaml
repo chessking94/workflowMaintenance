@@ -1,4 +1,4 @@
-﻿<Window x:Class="UpdateApplicationWindow"
+﻿<Window x:Class="ApplicationWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -48,7 +48,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Button Content="Save" x:Name="btn_UpdateApp" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+            <Button Content="Save" x:Name="btn_SaveApp" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
         </Grid>
     </Grid>
 </Window>

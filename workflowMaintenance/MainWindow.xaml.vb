@@ -48,12 +48,17 @@ Public Class MainWindow
 #End Region
 
 #Region "Application"
+    Private Sub CreateApplication() Handles btn_AddApp.Click
+        Dim appWindow As New ApplicationWindow()
+        appWindow.Show()
+    End Sub
+
     Private Sub Hyperlink_ApplicationID(sender As Object, e As RoutedEventArgs)
         Dim hyperlink As Hyperlink = CType(sender, Hyperlink)
         Dim run As Run = CType(hyperlink.Inlines.FirstInline, Run)
-        Dim hyperlinkValue As Integer = Convert.ToInt32(run.Text)
+        Dim applicationID As Integer = Convert.ToInt32(run.Text)
 
-        Dim appWindow As New UpdateApplicationWindow(hyperlinkValue)
+        Dim appWindow As New ApplicationWindow(applicationID)
         appWindow.Show()
     End Sub
 
