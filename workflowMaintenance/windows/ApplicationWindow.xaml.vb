@@ -1,7 +1,7 @@
 ﻿Imports Microsoft.Data.SqlClient
 Imports System.Data
 
-Public Class ApplicationWindow
+Partial Public Class ApplicationWindow
     Private applicationID As Integer
 
     Public Sub New(Optional pi_applicationID As Integer = 0)
@@ -59,8 +59,9 @@ Public Class ApplicationWindow
     End Sub
 
     Private Sub WindowClosed() Handles Me.Closed
-        'TODO: when the window closes, I want to refresh the original data
-        'MainWindow.RefreshApplications()
+        'when the window closes, refresh the original DataGrid
+        Dim mainWindow As MainWindow = CType(Application.Current.MainWindow, MainWindow)
+        mainWindow.RefreshApplications()
     End Sub
 
     Private Sub SaveApplication() Handles btn_SaveApp.Click
@@ -109,7 +110,7 @@ Public Class ApplicationWindow
                     Else
                         'something failed, Select Case the causes returned
                         Select Case applicationID
-                        'TODO: highlight the bad fields? or will my earlier validation make that redundant?
+                        'TODO: highlight the bad fields?
                             Case -1
                                 MessageBox.Show("Unable to create application, missing name", "Result", MessageBoxButton.OK, MessageBoxImage.Error)
                             Case -2

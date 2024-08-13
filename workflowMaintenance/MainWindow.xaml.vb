@@ -2,7 +2,7 @@
 Imports System.Data
 Imports System.IO
 
-Public Class MainWindow
+Partial Public Class MainWindow
     Friend Shared myConfig As New Utilities_NetCore.clsConfig
     Friend Shared projectDir As String
     Friend Shared db_Connection As New SqlConnection
@@ -62,7 +62,7 @@ Public Class MainWindow
         appWindow.Show()
     End Sub
 
-    Private Sub RefreshApplications() Handles tab_Applications.Loaded, btn_RefreshApp.Click
+    Friend Sub RefreshApplications() Handles tab_Applications.Loaded, btn_RefreshApp.Click
         Using command As New SqlCommand
             command.Connection = db_Connection
             command.CommandType = Data.CommandType.Text
