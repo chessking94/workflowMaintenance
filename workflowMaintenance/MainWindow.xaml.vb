@@ -77,4 +77,35 @@ Partial Public Class MainWindow
         End Using
     End Sub
 #End Region
+
+#Region "Action"
+    Private Sub CreateAction() Handles btn_AddAction.Click
+        Dim actionWindow As New ActionWindow()
+        actionWindow.Show()
+    End Sub
+
+    Private Sub Hyperlink_ActionID(sender As Object, e As RoutedEventArgs)
+        Dim hyperlink As Hyperlink = CType(sender, Hyperlink)
+        Dim run As Run = CType(hyperlink.Inlines.FirstInline, Run)
+        Dim actionID As Integer = Convert.ToInt32(run.Text)
+
+        Dim actionWindow As New ActionWindow(actionID)
+        actionWindow.Show()
+    End Sub
+
+    Friend Sub RefreshActions() Handles tab_Actions.Loaded, btn_RefreshAction.Click
+        Using command As New SqlCommand
+            command.Connection = db_Connection
+            command.CommandType = Data.CommandType.Text
+            command.CommandText = modQueries.Actions()
+            command.Parameters.AddWithValue("@actionID", -1)
+
+            Dim dataTable As New DataTable()
+            Dim adapter As New SqlDataAdapter(command)
+            adapter.Fill(dataTable)
+
+            dg_Actions.ItemsSource = dataTable.DefaultView
+        End Using
+    End Sub
+#End Region
 End Class

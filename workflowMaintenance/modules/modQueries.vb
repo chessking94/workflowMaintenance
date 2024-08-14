@@ -1,4 +1,5 @@
 ﻿Friend Module modQueries
+#Region "Events"
 	Friend Function ActiveEvents() As String
 		Return _
 "
@@ -15,7 +16,9 @@ eventStartDate AS [Start Date]
 FROM dbo.vwActiveEvents
 "
 	End Function
+#End Region
 
+#Region "Applications"
 	Friend Function Applications() As String
 		Return _
 "
@@ -32,7 +35,29 @@ FROM vwApplications
 WHERE applicationID = @applicationID OR ISNULL(@applicationID, -1) = -1
 "
 	End Function
+#End Region
 
+#Region "Actions"
+	Friend Function Actions() As String
+		Return _
+"
+SELECT
+actionID AS [ID],
+actionName AS [Name],
+actionDescription AS [Description],
+actionActive AS [Active],
+actionRequireParameters AS [Require_Parameters],
+actionConcurrency AS [Concurrency],
+applicationID AS [Application_ID]
+
+FROM vwActions
+
+WHERE actionID = @actionID OR ISNULL(@actionID, -1) = -1
+"
+	End Function
+#End Region
+
+#Region "Reusables"
 	Friend Function ColumnLengths() As String
 		Return _
 "
@@ -47,4 +72,5 @@ AND table_name = @tableName
 AND data_type = 'varchar'
 "
 	End Function
+#End Region
 End Module

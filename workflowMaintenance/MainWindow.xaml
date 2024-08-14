@@ -14,7 +14,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    
+
                     <Grid x:Name="grid_HomeTop" Background="#FFE5E5E5" VerticalAlignment="Top">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -34,7 +34,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            
+
             <TabItem Header="Applications" x:Name="tab_Applications">
                 <Grid x:Name="grid_AppContainer" Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
@@ -87,11 +87,61 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            
+
             <TabItem Header="Actions" x:Name="tab_Actions">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid x:Name="grid_ActionContainer" Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid x:Name="grid_ActionTop" Background="#FFE5E5E5" VerticalAlignment="Top">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <DataGrid x:Name="dg_Actions" AutoGenerateColumns="False" Grid.Row="1" IsReadOnly="True" HorizontalAlignment="Center" HorizontalContentAlignment="Center">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="ID">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                <Hyperlink Click="Hyperlink_ActionID">
+                                    <Run Text="{Binding ID}" />
+                                </Hyperlink>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <!-- other columns go here -->
+                                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                                <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+                                <DataGridCheckBoxColumn Header="Active" Binding="{Binding Active}"/>
+                                <DataGridCheckBoxColumn Header="Require Parameters" Binding="{Binding Require_Parameters}"/>
+                                <DataGridTextColumn Header="Concurrency" Binding="{Binding Concurrency}"/>
+                                <DataGridTextColumn Header="Application ID" Binding="{Binding Application_ID}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+
+                    <Grid x:Name="grid_ActionBottom" Background="#FFD5D5D5" Grid.Row="1" VerticalAlignment="Bottom">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Content="Refresh" x:Name="btn_RefreshAction" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                        <Button Content="Add New" x:Name="btn_AddAction" Grid.Column="3" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                    </Grid>
+                </Grid>
             </TabItem>
-            
+
             <TabItem Header="Workflows" x:Name="tab_Workflows">
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
