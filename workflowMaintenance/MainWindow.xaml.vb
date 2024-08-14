@@ -108,4 +108,35 @@ Partial Public Class MainWindow
         End Using
     End Sub
 #End Region
+
+#Region "Workflow"
+    Private Sub CreateWorkflow() Handles btn_AddWorkflow.Click
+        Dim workflowWindow As New WorkflowWindow()
+        workflowWindow.Show()
+    End Sub
+
+    Private Sub Hyperlink_WorkflowID(sender As Object, e As RoutedEventArgs)
+        Dim hyperlink As Hyperlink = CType(sender, Hyperlink)
+        Dim run As Run = CType(hyperlink.Inlines.FirstInline, Run)
+        Dim workflowID As Integer = Convert.ToInt32(run.Text)
+
+        Dim workflowWindow As New WorkflowWindow(workflowID)
+        workflowWindow.Show()
+    End Sub
+
+    Friend Sub RefreshWorkflows() Handles tab_Workflows.Loaded, btn_RefreshWorkflow.Click
+        Using command As New SqlCommand
+            command.Connection = db_Connection
+            command.CommandType = Data.CommandType.Text
+            command.CommandText = modQueries.Workflows()
+            command.Parameters.AddWithValue("@workflowID", -1)
+
+            Dim dataTable As New DataTable()
+            Dim adapter As New SqlDataAdapter(command)
+            adapter.Fill(dataTable)
+
+            dg_Workflows.ItemsSource = dataTable.DefaultView
+        End Using
+    End Sub
+#End Region
 End Class

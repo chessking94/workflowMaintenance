@@ -143,7 +143,54 @@
             </TabItem>
 
             <TabItem Header="Workflows" x:Name="tab_Workflows">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid x:Name="grid_WorkflowContainer" Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid x:Name="grid_WorkflowTop" Background="#FFE5E5E5" VerticalAlignment="Top">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <DataGrid x:Name="dg_Workflows" AutoGenerateColumns="False" Grid.Row="1" IsReadOnly="True" HorizontalAlignment="Center" HorizontalContentAlignment="Center">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="ID">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                                <Hyperlink Click="Hyperlink_WorkflowID">
+                                                    <Run Text="{Binding ID}" />
+                                                </Hyperlink>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <!-- other columns go here -->
+                                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                                <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+                                <DataGridCheckBoxColumn Header="Active" Binding="{Binding Active}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+
+                    <Grid x:Name="grid_WorkflowBottom" Background="#FFD5D5D5" Grid.Row="1" VerticalAlignment="Bottom">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Content="Refresh" x:Name="btn_RefreshWorkflow" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                        <Button Content="Add New" x:Name="btn_AddWorkflow" Grid.Column="3" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                    </Grid>
+                </Grid>
             </TabItem>
 
         </TabControl>

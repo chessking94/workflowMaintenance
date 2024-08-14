@@ -57,6 +57,23 @@ WHERE actionID = @actionID OR ISNULL(@actionID, -1) = -1
 	End Function
 #End Region
 
+#Region "Workflows"
+	Friend Function Workflows() As String
+		Return _
+"
+SELECT
+workflowID AS [ID],
+workflowName AS [Name],
+workflowDescription AS [Description],
+workflowActive AS [Active]
+
+FROM vwWorkflows
+
+WHERE workflowID = @workflowID OR ISNULL(@workflowID, -1) = -1
+"
+	End Function
+#End Region
+
 #Region "Reusables"
 	Friend Function ColumnLengths() As String
 		Return _
