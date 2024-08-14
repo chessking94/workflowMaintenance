@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:workflowMaintenance"
         mc:Ignorable="d"
         Title="Update Workflow" Height="450" Width="800">
+    
     <Grid x:Name="grid_WorkflowContainer" Background="#FFE5E5E5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
