@@ -125,7 +125,7 @@ Partial Public Class ActionWindow
                             Case -2
                                 MessageBox.Show("Unable to create action, missing description", "Result", MessageBoxButton.OK, MessageBoxImage.Error)
                             Case -3
-                                MessageBox.Show("Unable to create action, missing filename", "Result", MessageBoxButton.OK, MessageBoxImage.Error)
+                                MessageBox.Show("Unable to create action, application does not exist", "Result", MessageBoxButton.OK, MessageBoxImage.Error)
                             Case Else
                                 MessageBox.Show("Unable to create action, unknown error", "Result", MessageBoxButton.OK, MessageBoxImage.Error)
                         End Select
