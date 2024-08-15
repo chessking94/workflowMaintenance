@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:workflowMaintenance"
         mc:Ignorable="d"
         Title="Maintain Workflows" Height="450" Width="800">
+
     <Grid>
         <TabControl>
             <TabItem Header="Home" x:Name="tab_Home">
@@ -15,7 +16,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Grid x:Name="grid_HomeTop" Background="#FFE5E5E5" VerticalAlignment="Top">
+                    <Grid x:Name="grid_HomeTop" Background="#FFE5E5E5" Grid.Row="0" VerticalAlignment="Top">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -42,7 +43,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Grid x:Name="grid_AppTop" Background="#FFE5E5E5" VerticalAlignment="Top">
+                    <Grid x:Name="grid_AppTop" Background="#FFE5E5E5" Grid.Row="0" VerticalAlignment="Top">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
@@ -95,7 +96,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Grid x:Name="grid_ActionTop" Background="#FFE5E5E5" VerticalAlignment="Top">
+                    <Grid x:Name="grid_ActionTop" Background="#FFE5E5E5" Grid.Row="0" VerticalAlignment="Top">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
@@ -106,9 +107,9 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock>
-                                <Hyperlink Click="Hyperlink_ActionID">
-                                    <Run Text="{Binding ID}" />
-                                </Hyperlink>
+                                                <Hyperlink Click="Hyperlink_ActionID">
+                                                    <Run Text="{Binding ID}" />
+                                                </Hyperlink>
                                             </TextBlock>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
@@ -149,7 +150,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Grid x:Name="grid_WorkflowTop" Background="#FFE5E5E5" VerticalAlignment="Top">
+                    <Grid x:Name="grid_WorkflowTop" Background="#FFE5E5E5" Grid.Row="0" VerticalAlignment="Top">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
@@ -193,6 +194,62 @@
                 </Grid>
             </TabItem>
 
+            <!-- TODO: New TabItem for WorkflowActions -->
+            <TabItem Header="Workflow Actions" x:Name="tab_WorkflowActions">
+                <Grid x:Name="grid_WAContainer" Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid x:Name="grid_WATop" Background="#FFE5E5E5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- TODO: Choosing a workflow would populate the staging table with anything current set up in the main table, and populate DataGrid below -->
+                        <Label x:Name="label_workflowName" Content="Workflow Name" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1"/>
+                        <ComboBox x:Name="combo_workflowName" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="3"/>
+                    </Grid>
+
+                    <!-- TODO: Add DataGrid linked to stage_WorkflowActions (also need proc to populate it -->
+                    <Grid x:Name="grid_WASteps" Background="#FFE5E5E5" Grid.Row="1" VerticalAlignment="Top">
+                        <!-- TODO: Need to build a way to add/remove/reorder steps, editable DataGrid? -->
+                        <!-- TODO: Do I want to lock the workflow selection combobox when modifying? If so, may want an unlock/discard changes button -->
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <DataGrid x:Name="dg_WorkflowActions" Grid.Row="1" IsReadOnly="True" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                    </Grid>
+
+                    <Grid x:Name="grid_WABottom" Background="#FFD5D5D5" Grid.Row="2" VerticalAlignment="Bottom">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- TODO: Button on the bottom which will validate and migrate data from staging table to main table -->
+                        <Button Content="Save" x:Name="btn_SaveSteps" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                        <!-- TODO: Reset button -->
+                    </Grid>
+                </Grid>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

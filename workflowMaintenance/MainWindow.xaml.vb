@@ -139,4 +139,48 @@ Partial Public Class MainWindow
         End Using
     End Sub
 #End Region
+
+#Region "Workflow Actions"
+    Private Sub BuildWorkflowList() Handles tab_WorkflowActions.Loaded
+        Using command As New SqlCommand
+            Dim combobox_items As New List(Of String)
+            command.Connection = db_Connection
+            command.CommandType = Data.CommandType.Text
+            command.CommandText = modQueries.Workflows()
+            command.Parameters.AddWithValue("@workflowID", -1)
+
+            With command.ExecuteReader
+                While .Read
+                    combobox_items.Add(.Item("Name"))
+                End While
+                .Close()
+            End With
+            combobox_items.Sort()  'want these to be in alphabetical order
+            combo_workflowName.ItemsSource = combobox_items
+        End Using
+    End Sub
+
+    Private Sub RefreshWorkflowActions() Handles combo_workflowName.SelectionChanged
+        If combo_workflowName.SelectedValue <> "" Then
+            'combo_workflowName.IsEnabled = False
+
+            Using command As New SqlCommand
+                command.Connection = db_Connection
+                command.CommandType = Data.CommandType.StoredProcedure
+                command.CommandText = "dbo.stageWorkflowActions"
+                command.Parameters.AddWithValue("@workflowName", combo_workflowName.SelectedValue)
+                command.ExecuteNonQuery()
+
+                command.CommandType = Data.CommandType.Text
+                command.CommandText = modQueries.ShowWorkflowAcions()
+
+                Dim dataTable As New DataTable()
+                Dim adapter As New SqlDataAdapter(command)
+                adapter.Fill(dataTable)
+
+                dg_WorkflowActions.ItemsSource = dataTable.DefaultView
+            End Using
+        End If
+    End Sub
+#End Region
 End Class

@@ -74,6 +74,27 @@ WHERE workflowID = @workflowID OR ISNULL(@workflowID, -1) = -1
 	End Function
 #End Region
 
+#Region "Workflow Actions"
+	Friend Function ShowWorkflowAcions() As String
+		Return _
+"
+SELECT
+stg.stepNumber AS [Step Number],
+stg.actionID AS [Action ID],
+stg.eventParameters AS [Event Parameters],
+stg.continueAfterError AS [Continue After Error]
+
+FROM dbo.stage_WorkflowActions stg
+JOIN dbo.Workflows wf ON
+	stg.workflowID = wf.workflowID
+
+WHERE wf.workflowName = @workflowName
+
+ORDER BY stg.stepNumber
+"
+	End Function
+#End Region
+
 #Region "Reusables"
 	Friend Function ColumnLengths() As String
 		Return _
