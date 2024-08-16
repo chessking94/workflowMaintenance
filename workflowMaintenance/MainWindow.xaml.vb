@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Data.SqlClient
+Imports System.Collections.ObjectModel
 Imports System.Data
 Imports System.IO
 
@@ -141,7 +142,12 @@ Partial Public Class MainWindow
 #End Region
 
 #Region "Workflow Actions"
-    Private Sub BuildWorkflowList() Handles tab_WorkflowActions.Loaded
+    Private Sub BuildWorkflowList() Handles tab_WorkflowActions.Loaded, btn_ResetWFActions.Click
+        combo_workflowName.IsEnabled = True
+        btn_AddWFAction.IsEnabled = False
+        combo_workflowName.SelectedValue = ""
+        dg_WorkflowActions.ItemsSource = Nothing
+
         Using command As New SqlCommand
             Dim combobox_items As New List(Of String)
             command.Connection = db_Connection
@@ -160,9 +166,19 @@ Partial Public Class MainWindow
         End Using
     End Sub
 
-    Private Sub RefreshWorkflowActions() Handles combo_workflowName.SelectionChanged
+    Private Sub Hyperlink_StepNumber(sender As Object, e As RoutedEventArgs)
+        Dim hyperlink As Hyperlink = CType(sender, Hyperlink)
+        Dim run As Run = CType(hyperlink.Inlines.FirstInline, Run)
+        Dim stepNumber As Integer = Convert.ToInt32(run.Text)
+
+        Dim workflowActionWindow As New WorkflowActionWindow(combo_workflowName.SelectedValue, stepNumber)
+        workflowActionWindow.Show()
+    End Sub
+
+    Friend Sub RefreshWorkflowActions() Handles combo_workflowName.SelectionChanged
         If combo_workflowName.SelectedValue <> "" Then
-            'combo_workflowName.IsEnabled = False
+            combo_workflowName.IsEnabled = False
+            btn_AddWFAction.IsEnabled = True
 
             Using command As New SqlCommand
                 command.Connection = db_Connection
@@ -172,7 +188,8 @@ Partial Public Class MainWindow
                 command.ExecuteNonQuery()
 
                 command.CommandType = Data.CommandType.Text
-                command.CommandText = modQueries.ShowWorkflowAcions()
+                command.CommandText = modQueries.ShowWorkflowActions()
+                command.Parameters.AddWithValue("@stepNumber", -1)
 
                 Dim dataTable As New DataTable()
                 Dim adapter As New SqlDataAdapter(command)
@@ -181,6 +198,14 @@ Partial Public Class MainWindow
                 dg_WorkflowActions.ItemsSource = dataTable.DefaultView
             End Using
         End If
+    End Sub
+
+    Private Sub AddWorkflowAction() Handles btn_AddWFAction.Click
+        'TODO: this should pop a new window with places to fill in the info needed
+    End Sub
+
+    Private Sub SaveWorkflowActions() Handles btn_SaveWFActions.Click
+        'TODO: execute dbo.createWorkflowActions
     End Sub
 #End Region
 End Class

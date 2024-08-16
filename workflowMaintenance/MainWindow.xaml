@@ -194,7 +194,6 @@
                 </Grid>
             </TabItem>
 
-            <!-- TODO: New TabItem for WorkflowActions -->
             <TabItem Header="Workflow Actions" x:Name="tab_WorkflowActions">
                 <Grid x:Name="grid_WAContainer" Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
@@ -216,20 +215,50 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <!-- TODO: Choosing a workflow would populate the staging table with anything current set up in the main table, and populate DataGrid below -->
                         <Label x:Name="label_workflowName" Content="Workflow Name" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1"/>
                         <ComboBox x:Name="combo_workflowName" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="3"/>
                     </Grid>
 
-                    <!-- TODO: Add DataGrid linked to stage_WorkflowActions (also need proc to populate it -->
                     <Grid x:Name="grid_WASteps" Background="#FFE5E5E5" Grid.Row="1" VerticalAlignment="Top">
-                        <!-- TODO: Need to build a way to add/remove/reorder steps, editable DataGrid? -->
-                        <!-- TODO: Do I want to lock the workflow selection combobox when modifying? If so, may want an unlock/discard changes button -->
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <DataGrid x:Name="dg_WorkflowActions" Grid.Row="1" IsReadOnly="True" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                        <DataGrid x:Name="dg_WorkflowActions" AutoGenerateColumns="False" Grid.Row="0" IsReadOnly="True" HorizontalAlignment="Center" HorizontalContentAlignment="Center">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="Step Number">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                                <Hyperlink Click="Hyperlink_StepNumber">
+                                                    <Run Text="{Binding StepNumber}" />
+                                                </Hyperlink>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <!-- other columns go here -->
+                                <DataGridTextColumn Header="Action Name" Binding="{Binding ActionName}"/>
+                                <DataGridTextColumn Header="Event Parameters" Binding="{Binding EventParameters}"/>
+                                <DataGridCheckBoxColumn Header="Continue After Error" Binding="{Binding ContinueAfterError}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <Grid x:Name="grid_dg_Buttons" Background="#FFE5E5E5" Grid.Row="1" VerticalAlignment="Top">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button Content="Add Step" x:Name="btn_AddWFAction" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                        </Grid>
                     </Grid>
 
                     <Grid x:Name="grid_WABottom" Background="#FFD5D5D5" Grid.Row="2" VerticalAlignment="Bottom">
@@ -244,9 +273,8 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <!-- TODO: Button on the bottom which will validate and migrate data from staging table to main table -->
-                        <Button Content="Save" x:Name="btn_SaveSteps" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-                        <!-- TODO: Reset button -->
+                        <Button Content="Save" x:Name="btn_SaveWFActions" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                        <Button Content="Reset" x:Name="btn_ResetWFActions" Grid.Column="3" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
                     </Grid>
                 </Grid>
             </TabItem>
