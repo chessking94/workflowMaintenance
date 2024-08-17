@@ -177,7 +177,7 @@ Partial Public Class MainWindow
         workflowActionWindow.Show()
     End Sub
 
-    Friend Sub PresentWorkflowActions() Handles combo_workflowName.SelectionChanged
+    Private Sub PresentWorkflowActions() Handles combo_workflowName.SelectionChanged
         If combo_workflowName.SelectedValue <> "" Then
             collectionWorkflowActions.Clear()
             combo_workflowName.IsEnabled = False
@@ -216,13 +216,66 @@ Partial Public Class MainWindow
         End If
     End Sub
 
+    Friend Sub WorkflowActionsWindowClosed()
+        If combo_workflowName.SelectedValue <> "" Then
+            collectionWorkflowActions.Clear()
+            combo_workflowName.IsEnabled = False
+            btn_AddWFAction.IsEnabled = True
+
+            Using command As New SqlCommand
+                command.Connection = db_Connection
+                command.CommandType = Data.CommandType.Text
+                command.CommandText = modQueries.ShowWorkflowActions()
+                command.Parameters.AddWithValue("@workflowName", combo_workflowName.SelectedValue)
+                command.Parameters.AddWithValue("@stepNumber", -1)
+
+                Dim dataTable As New DataTable()
+                Dim adapter As New SqlDataAdapter(command)
+                adapter.Fill(dataTable)
+
+                For Each row As DataRow In dataTable.Rows
+                    Dim wfAction As New clsWorkflowAction
+                    With wfAction
+                        .stagingKey = CInt(row("StagingKey"))
+                        .stepNumber = CInt(row("StepNumber"))
+                        .actionName = row("ActionName").ToString()
+                        .eventParameters = row("EventParameters").ToString()
+                        .continueAfterError = CBool(row("ContinueAfterError"))
+                    End With
+
+                    collectionWorkflowActions.Add(wfAction)
+                Next
+
+                dg_WorkflowActions.ItemsSource = collectionWorkflowActions
+            End Using
+        End If
+    End Sub
+
     Private Sub AddWorkflowAction() Handles btn_AddWFAction.Click
         Dim workflowActionWindow As New WorkflowActionWindow(combo_workflowName.SelectedValue)
         workflowActionWindow.Show()
     End Sub
 
     Private Sub SaveWorkflowActions() Handles btn_SaveWFActions.Click
-        'TODO: execute dbo.createWorkflowActions
+        Using command As New SqlCommand
+            command.Connection = db_Connection
+            command.CommandType = Data.CommandType.StoredProcedure
+            command.CommandText = "dbo.createWorkflowActions"
+            command.Parameters.AddWithValue("@workflowName", combo_workflowName.SelectedValue)
+
+            Dim rtnval As New SqlParameter("@ReturnValue", SqlDbType.Int)
+            rtnval.Direction = ParameterDirection.ReturnValue
+            command.Parameters.Add(rtnval)
+
+            command.ExecuteNonQuery()
+
+            Select Case Convert.ToInt32(rtnval.Value)
+                Case 0
+                    BuildWorkflowList()
+                Case -1
+                    MessageBox.Show("Unable to save workflow actions, non-terminal events exist", "Result", MessageBoxButton.OK, MessageBoxImage.Error)
+            End Select
+        End Using
     End Sub
 #End Region
 End Class

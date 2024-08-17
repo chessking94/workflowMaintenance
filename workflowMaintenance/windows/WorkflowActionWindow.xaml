@@ -42,7 +42,16 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Button Content="Save" x:Name="btn_SaveWorkflowAction" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Save" x:Name="btn_SaveWorkflowAction" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+            <Button Content="Delete" x:Name="btn_DeleteWorkflowAction" Grid.Column="3" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
         </Grid>
     </Grid>
 </Window>

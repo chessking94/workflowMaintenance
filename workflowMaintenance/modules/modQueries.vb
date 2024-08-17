@@ -88,7 +88,7 @@ stg.continueAfterError AS [ContinueAfterError]
 FROM dbo.stage_WorkflowActions stg
 JOIN dbo.Workflows wf ON
 	stg.workflowID = wf.workflowID
-JOIN dbo.Actions a ON
+LEFT JOIN dbo.Actions a ON
 	stg.actionID = a.actionID
 
 WHERE wf.workflowName = @workflowName

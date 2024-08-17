@@ -58,6 +58,21 @@ Partial Public Class WorkflowActionWindow
                 list_steps.Add(nextStepNumber.ToString)
                 combo_stepNumber.ItemsSource = list_steps
                 combo_stepNumber.SelectedValue = nextStepNumber.ToString  'default new step to last, so previous step count + 1
+                stepNumber = nextStepNumber
+
+                command.Parameters.Clear()
+                command.CommandType = Data.CommandType.StoredProcedure
+                command.CommandText = "dbo.insertWorkflowAction"
+                command.Parameters.AddWithValue("@workflowName", workflowName)
+                command.Parameters.AddWithValue("@stepNumber", nextStepNumber)
+
+                Dim rtnval As New SqlParameter("@ReturnValue", SqlDbType.Int)
+                rtnval.Direction = ParameterDirection.ReturnValue
+                command.Parameters.Add(rtnval)
+
+                command.ExecuteNonQuery()
+
+                stagingKey = Convert.ToInt32(rtnval.Value)
             Else
                 combo_stepNumber.ItemsSource = list_steps
 
@@ -81,16 +96,74 @@ Partial Public Class WorkflowActionWindow
     End Sub
 
     Private Sub WindowClosed() Handles Me.Closed
-        'when the window closes, refresh the original DataGrid
         Dim mainWindow As MainWindow = CType(Application.Current.MainWindow, MainWindow)
-        'mainWindow.RefreshWorkflowActions()
-        'TODO: might need a separate call to refresh the window, can't reuse since I can't add parameters
+        Dim incompleteRecord As Boolean = False  'if new record was created but never saved/updated, delete it
+        Using command As New SqlCommand
+            command.Connection = MainWindow.db_Connection
+            command.CommandText = modQueries.ShowWorkflowActions()
+            command.Parameters.AddWithValue("@workflowName", workflowName)
+            command.Parameters.AddWithValue("@stepNumber", stepNumber)
+
+            With command.ExecuteReader
+                While .Read
+                    If .IsDBNull(.GetOrdinal("ActionName")) Then
+                        incompleteRecord = True
+                    End If
+                End While
+                .Close()
+            End With
+        End Using
+
+        If incompleteRecord Then
+            DeleteWorkflowAction()
+        End If
+
+        'when the window closes, refresh the original DataGrid
+        mainWindow.WorkflowActionsWindowClosed()
     End Sub
 
     Private Sub SaveWorkflowAction() Handles btn_SaveWorkflowAction.Click
-        'TODO: this will update the values of stepNumber in stage_WorkflowActions for the workflow in question, and reinsert the row for this stagingKey value
+        Dim validationFailReason As String = ""
+        If validationFailReason = "" Then
+            If Not IsNumeric(combo_stepNumber.SelectedValue) Then
+                validationFailReason = $"Step Number {combo_stepNumber.SelectedValue} is not an integer"
+            End If
+        End If
+
+        If validationFailReason = "" Then
+            If combo_actionName.SelectedValue Is Nothing Then
+                validationFailReason = "No action selected"
+            End If
+        End If
+
+        If validationFailReason <> "" Then
+            MessageBox.Show($"Pre-validation failed: {validationFailReason}", "Result", MessageBoxButton.OK, MessageBoxImage.Error)
+        Else
+            Using command As New SqlCommand
+                command.Connection = MainWindow.db_Connection
+                command.CommandType = Data.CommandType.StoredProcedure
+                command.CommandText = "dbo.saveWorkflowAction"
+                command.Parameters.AddWithValue("@stagingKey", stagingKey)
+                command.Parameters.AddWithValue("@stepNumber", combo_stepNumber.SelectedValue)
+                command.Parameters.AddWithValue("@actionName", combo_actionName.SelectedValue)
+                command.Parameters.AddWithValue("@eventParameters", tb_eventParameters.Text)
+                command.Parameters.AddWithValue("@continueAfterError", If(cb_continueAfterError.IsChecked, 1, 0))
+                command.ExecuteNonQuery()
+            End Using
+
+            Me.Close()
+        End If
     End Sub
 
-    'TODO: also will need a way to delete steps
-    'TODO: something to reorder steps when one is inserted/removed
+    Private Sub DeleteWorkflowAction() Handles btn_DeleteWorkflowAction.Click
+        Using command As New SqlCommand
+            command.Connection = MainWindow.db_Connection
+            command.CommandType = Data.CommandType.StoredProcedure
+            command.CommandText = "dbo.deleteWorkflowAction"
+            command.Parameters.AddWithValue("@stagingKey", stagingKey)
+            command.ExecuteNonQuery()
+        End Using
+
+        Me.Close()
+    End Sub
 End Class
