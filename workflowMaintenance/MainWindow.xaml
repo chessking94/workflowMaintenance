@@ -232,16 +232,16 @@
                                         <DataTemplate>
                                             <TextBlock>
                                                 <Hyperlink Click="Hyperlink_StepNumber">
-                                                    <Run Text="{Binding StepNumber}" />
+                                                    <Run Text="{Binding stepNumber}" />
                                                 </Hyperlink>
                                             </TextBlock>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
                                 <!-- other columns go here -->
-                                <DataGridTextColumn Header="Action Name" Binding="{Binding ActionName}"/>
-                                <DataGridTextColumn Header="Event Parameters" Binding="{Binding EventParameters}"/>
-                                <DataGridCheckBoxColumn Header="Continue After Error" Binding="{Binding ContinueAfterError}"/>
+                                <DataGridTextColumn Header="Action Name" Binding="{Binding actionName}"/>
+                                <DataGridTextColumn Header="Event Parameters" Binding="{Binding eventParameters}"/>
+                                <DataGridCheckBoxColumn Header="Continue After Error" Binding="{Binding continueAfterError}"/>
                             </DataGrid.Columns>
                         </DataGrid>
 

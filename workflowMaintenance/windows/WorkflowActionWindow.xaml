@@ -31,8 +31,8 @@
             <Label x:Name="label_eventParameters" Content="Event Parameters" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="2"/>
             <Label x:Name="label_continueAfterError" Content="Continue After Error" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="3"/>
 
-            <TextBox x:Name="tb_stepNumber" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="0"/>
-            <TextBox x:Name="tb_actionName" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1"/>
+            <ComboBox x:Name="combo_stepNumber" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="0"/>
+            <ComboBox x:Name="combo_actionName" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1"/>
             <TextBox x:Name="tb_eventParameters" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="2"/>
             <CheckBox x:Name="cb_continueAfterError" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="3"/>
         </Grid>

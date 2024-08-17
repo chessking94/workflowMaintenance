@@ -8,6 +8,8 @@ Partial Public Class MainWindow
     Friend Shared projectDir As String
     Friend Shared db_Connection As New SqlConnection
 
+    Friend Property collectionWorkflowActions As New ObservableCollection(Of clsWorkflowAction)
+
 #Region "Window Events"
     Private Sub WindowLoaded() Handles Me.Loaded
         projectDir = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\.."))
@@ -175,8 +177,9 @@ Partial Public Class MainWindow
         workflowActionWindow.Show()
     End Sub
 
-    Friend Sub RefreshWorkflowActions() Handles combo_workflowName.SelectionChanged
+    Friend Sub PresentWorkflowActions() Handles combo_workflowName.SelectionChanged
         If combo_workflowName.SelectedValue <> "" Then
+            collectionWorkflowActions.Clear()
             combo_workflowName.IsEnabled = False
             btn_AddWFAction.IsEnabled = True
 
@@ -195,13 +198,27 @@ Partial Public Class MainWindow
                 Dim adapter As New SqlDataAdapter(command)
                 adapter.Fill(dataTable)
 
-                dg_WorkflowActions.ItemsSource = dataTable.DefaultView
+                For Each row As DataRow In dataTable.Rows
+                    Dim wfAction As New clsWorkflowAction
+                    With wfAction
+                        .stagingKey = CInt(row("StagingKey"))
+                        .stepNumber = CInt(row("StepNumber"))
+                        .actionName = row("ActionName").ToString()
+                        .eventParameters = row("EventParameters").ToString()
+                        .continueAfterError = CBool(row("ContinueAfterError"))
+                    End With
+
+                    collectionWorkflowActions.Add(wfAction)
+                Next
+
+                dg_WorkflowActions.ItemsSource = collectionWorkflowActions
             End Using
         End If
     End Sub
 
     Private Sub AddWorkflowAction() Handles btn_AddWFAction.Click
-        'TODO: this should pop a new window with places to fill in the info needed
+        Dim workflowActionWindow As New WorkflowActionWindow(combo_workflowName.SelectedValue)
+        workflowActionWindow.Show()
     End Sub
 
     Private Sub SaveWorkflowActions() Handles btn_SaveWFActions.Click

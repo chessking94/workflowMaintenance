@@ -79,6 +79,7 @@ WHERE workflowID = @workflowID OR ISNULL(@workflowID, -1) = -1
 		Return _
 "
 SELECT
+stg.stagingKey AS [StagingKey],
 stg.stepNumber AS [StepNumber],
 a.actionName AS [ActionName],
 stg.eventParameters AS [EventParameters],
@@ -94,6 +95,20 @@ WHERE wf.workflowName = @workflowName
 AND (stepNumber = @stepNumber OR ISNULL(@stepNumber, -1) = -1)
 
 ORDER BY stg.stepNumber
+"
+	End Function
+
+	Friend Function CountWorkflowSteps() As String
+		Return _
+"
+SELECT
+COUNT(stg.stepNumber) AS [stepCount]
+
+FROM dbo.stage_WorkflowActions stg
+JOIN dbo.Workflows w ON
+	stg.workflowID = w.workflowID
+
+WHERE w.workflowName = @workflowName
 "
 	End Function
 #End Region
