@@ -104,7 +104,7 @@ Partial Public Class ActionWindow
 
                 If actionID = 0 Then
                     'new action
-                    command.CommandText = "dbo.createApplication"
+                    command.CommandText = "dbo.createAction"
 
                     Dim rtnval As New SqlParameter("@ReturnValue", SqlDbType.Int)
                     rtnval.Direction = ParameterDirection.ReturnValue
@@ -114,7 +114,7 @@ Partial Public Class ActionWindow
 
                     actionID = Convert.ToInt32(rtnval.Value)
                     If actionID > 0 Then
-                        MessageBox.Show($"Application {actionID} successfully created", "Result", MessageBoxButton.OK, MessageBoxImage.Information)
+                        MessageBox.Show($"Action {actionID} successfully created", "Result", MessageBoxButton.OK, MessageBoxImage.Information)
                         Me.Close()
                     Else
                         'something failed, Select Case the causes returned
