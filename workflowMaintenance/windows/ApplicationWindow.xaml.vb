@@ -75,8 +75,20 @@ Partial Public Class ApplicationWindow
 
         'validate data
         If validationFailReason = "" Then
+            If String.IsNullOrWhiteSpace(tb_Name.Text) Then
+                validationFailReason = $"Invalid name"
+            End If
+        End If
+
+        If validationFailReason = "" Then
+            If String.IsNullOrWhiteSpace(tb_Description.Text) Then
+                validationFailReason = $"Invalid description"
+            End If
+        End If
+
+        If validationFailReason = "" Then
             If Not IO.File.Exists(tb_Filename.Text) Then
-                validationFailReason = $"'{tb_Filename.Text}' does not exist"
+                validationFailReason = $"File '{tb_Filename.Text}' does not exist"
             End If
         End If
 

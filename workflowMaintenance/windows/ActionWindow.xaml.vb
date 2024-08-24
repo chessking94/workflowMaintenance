@@ -84,8 +84,20 @@ Partial Public Class ActionWindow
 
         'validate data
         If validationFailReason = "" Then
+            If String.IsNullOrWhiteSpace(tb_Name.Text) Then
+                validationFailReason = $"Invalid name"
+            End If
+        End If
+
+        If validationFailReason = "" Then
+            If String.IsNullOrWhiteSpace(tb_Description.Text) Then
+                validationFailReason = $"Invalid description"
+            End If
+        End If
+
+        If validationFailReason = "" Then
             If Not IsNumeric(tb_Concurrency.Text) Then
-                validationFailReason = $"'{tb_Concurrency.Text}' is not an integer"
+                validationFailReason = $"Concurrency '{tb_Concurrency.Text}' is not an integer"
             End If
         End If
 

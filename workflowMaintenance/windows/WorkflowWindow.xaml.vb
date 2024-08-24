@@ -66,7 +66,17 @@ Partial Public Class WorkflowWindow
         tb_Description.Text = tb_Description.Text.Trim()
 
         'validate data
-        'nothing to validate here
+        If validationFailReason = "" Then
+            If String.IsNullOrWhiteSpace(tb_Name.Text) Then
+                validationFailReason = $"Invalid name"
+            End If
+        End If
+
+        If validationFailReason = "" Then
+            If String.IsNullOrWhiteSpace(tb_Description.Text) Then
+                validationFailReason = $"Invalid description"
+            End If
+        End If
 
         'perform create/update
         If validationFailReason <> "" Then
