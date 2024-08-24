@@ -120,6 +120,7 @@
                                 <DataGridCheckBoxColumn Header="Active" Binding="{Binding Active}"/>
                                 <DataGridCheckBoxColumn Header="Require Parameters" Binding="{Binding Require_Parameters}"/>
                                 <DataGridTextColumn Header="Concurrency" Binding="{Binding Concurrency}"/>
+                                <DataGridCheckBoxColumn Header="Log Output" Binding="{Binding Log_Output}"/>
                                 <DataGridTextColumn Header="Application ID" Binding="{Binding Application_ID}"/>
                             </DataGrid.Columns>
                         </DataGrid>

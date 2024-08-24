@@ -59,6 +59,7 @@ Partial Public Class ActionWindow
                         cb_Active.IsChecked = (.GetBoolean("Active") = True)
                         cb_RequireParameters.IsChecked = (.GetBoolean("Require_Parameters") = True)
                         tb_Concurrency.Text = .GetByte("Concurrency")
+                        cb_LogOutput.IsChecked = (.GetBoolean("Log_Output") = True)
                         combo_ApplicationID.SelectedValue = If(.IsDBNull(.GetOrdinal("Application_ID")), "", .GetInt32("Application_ID").ToString)
                     End While
                     .Close()
@@ -100,6 +101,7 @@ Partial Public Class ActionWindow
                 command.Parameters.AddWithValue("@actionActive", If(cb_Active.IsChecked, 1, 0))
                 command.Parameters.AddWithValue("@actionRequireParameters", If(cb_RequireParameters.IsChecked, 1, 0))
                 command.Parameters.AddWithValue("@actionConcurrency", tb_Concurrency.Text)
+                command.Parameters.AddWithValue("@actionLogOutput", If(cb_LogOutput.IsChecked, 1, 0))
                 command.Parameters.AddWithValue("@applicationID", If(combo_ApplicationID.SelectedValue = "", DBNull.Value, Convert.ToInt32(combo_ApplicationID.SelectedValue)))
 
                 If actionID = 0 Then

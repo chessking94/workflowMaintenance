@@ -48,6 +48,7 @@ actionDescription AS [Description],
 actionActive AS [Active],
 actionRequireParameters AS [Require_Parameters],
 actionConcurrency AS [Concurrency],
+actionLogOutput AS [Log_Output],
 applicationID AS [Application_ID]
 
 FROM vwActions
