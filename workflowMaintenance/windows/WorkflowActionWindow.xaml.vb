@@ -1,5 +1,6 @@
 ﻿Imports Microsoft.Data.SqlClient
 Imports System.Data
+Imports System.Windows.Forms
 
 Partial Public Class WorkflowActionWindow
     Private workflowName As String
@@ -138,7 +139,7 @@ Partial Public Class WorkflowActionWindow
         End If
 
         If validationFailReason <> "" Then
-            MessageBox.Show($"Pre-validation failed: {validationFailReason}", "Result", MessageBoxButton.OK, MessageBoxImage.Error)
+            MessageBox.Show($"Pre-validation failed: {validationFailReason}", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Else
             Using command As New SqlCommand
                 command.Connection = MainWindow.db_Connection

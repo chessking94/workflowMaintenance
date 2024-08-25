@@ -4,16 +4,19 @@
 		Return _
 "
 SELECT
-eventID AS [Event ID],
-applicationName AS [Application Name],
-workflowName AS [Workflow Name],
-stepNumber AS [Workflow Step],
-actionName AS [Action Name],
-eventStatus AS [Event Status],
-eventStatusDate AS [Status Date],
-eventStartDate AS [Start Date]
+eventID AS [Event_ID],
+applicationName AS [Application_Name],
+workflowName AS [Workflow_Name],
+stepNumber AS [Workflow_Step],
+actionName AS [Action_Name],
+eventParameters AS [Event_Parameters],
+eventStatus AS [Event_Status],
+eventStatusDate AS [Status_Date],
+eventStartDate AS [Start_Date]
 
 FROM dbo.vwActiveEvents
+
+WHERE eventID = @eventID OR ISNULL(@eventID, -1) = -1
 "
 	End Function
 #End Region

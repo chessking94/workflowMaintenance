@@ -1,5 +1,6 @@
 ﻿Imports Microsoft.Data.SqlClient
 Imports System.Data
+Imports System.Windows.Forms
 
 Partial Public Class ActionWindow
     Private actionID As Integer
@@ -103,7 +104,7 @@ Partial Public Class ActionWindow
 
         'perform create/update
         If validationFailReason <> "" Then
-            MessageBox.Show($"Pre-validation failed: {validationFailReason}", "Result", MessageBoxButton.OK, MessageBoxImage.Error)
+            MessageBox.Show($"Pre-validation failed: {validationFailReason}", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Else
             Using command As New SqlCommand
                 command.Connection = MainWindow.db_Connection
@@ -128,20 +129,20 @@ Partial Public Class ActionWindow
 
                     actionID = Convert.ToInt32(rtnval.Value)
                     If actionID > 0 Then
-                        MessageBox.Show($"Action {actionID} successfully created", "Result", MessageBoxButton.OK, MessageBoxImage.Information)
+                        MessageBox.Show($"Action {actionID} successfully created", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information)
                         Me.Close()
                     Else
                         'something failed, Select Case the causes returned
                         Select Case actionID
                         'TODO: highlight the bad fields?
                             Case -1
-                                MessageBox.Show("Unable to create action, missing name", "Result", MessageBoxButton.OK, MessageBoxImage.Error)
+                                MessageBox.Show("Unable to create action, missing name", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
                             Case -2
-                                MessageBox.Show("Unable to create action, missing description", "Result", MessageBoxButton.OK, MessageBoxImage.Error)
+                                MessageBox.Show("Unable to create action, missing description", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
                             Case -3
-                                MessageBox.Show("Unable to create action, application does not exist", "Result", MessageBoxButton.OK, MessageBoxImage.Error)
+                                MessageBox.Show("Unable to create action, application does not exist", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
                             Case Else
-                                MessageBox.Show("Unable to create action, unknown error", "Result", MessageBoxButton.OK, MessageBoxImage.Error)
+                                MessageBox.Show("Unable to create action, unknown error", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         End Select
                     End If
                 Else
@@ -158,12 +159,12 @@ Partial Public Class ActionWindow
                     Dim result As Integer = Convert.ToInt32(rtnval.Value)
                     Select Case result
                         Case 0
-                            MessageBox.Show("Update successful", "Result", MessageBoxButton.OK, MessageBoxImage.Information)
+                            MessageBox.Show("Update successful", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information)
                             Me.Close()
                         Case 1
-                            MessageBox.Show("Update failed, nothing updated", "Result", MessageBoxButton.OK, MessageBoxImage.Warning)
+                            MessageBox.Show("Update failed, nothing updated", "Result", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                         Case Else
-                            MessageBox.Show("Update failed, unknown error", "Result", MessageBoxButton.OK, MessageBoxImage.Error)
+                            MessageBox.Show("Update failed, unknown error", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End Select
                 End If
             End Using

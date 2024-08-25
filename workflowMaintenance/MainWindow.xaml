@@ -23,7 +23,31 @@
                         </Grid.RowDefinitions>
 
                         <TextBox x:Name="txt_EventDesc" Grid.Row="0" TextWrapping="Wrap" Text="Active Events" IsEnabled="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                        <DataGrid x:Name="dg_ActiveEvents" Grid.Row="1" IsReadOnly="True" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                        <!-- <DataGrid x:Name="dg_ActiveEvents" Grid.Row="1" IsReadOnly="True" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/> -->
+
+                        <DataGrid x:Name="dg_ActiveEvents" AutoGenerateColumns="False" Grid.Row="1" IsReadOnly="True" HorizontalAlignment="Center" HorizontalContentAlignment="Center">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="ID">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                                <Hyperlink Click="Hyperlink_EventID">
+                                                    <Run Text="{Binding Event_ID}" />
+                                                </Hyperlink>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <!-- other columns go here -->
+                                <DataGridTextColumn Header="Application Name" Binding="{Binding Application_Name}"/>
+                                <DataGridTextColumn Header="Workflow Name" Binding="{Binding Workflow_Name}"/>
+                                <DataGridTextColumn Header="Workflow Step" Binding="{Binding Workflow_Step}"/>
+                                <DataGridTextColumn Header="Action Name" Binding="{Binding Action_Name}"/>
+                                <DataGridTextColumn Header="Event Status" Binding="{Binding Event_Status}"/>
+                                <DataGridTextColumn Header="Status Date" Binding="{Binding Status_Date, StringFormat={}{0:M/d/yyyy h:mm:ss tt}}" />
+                                <DataGridTextColumn Header="Start Date" Binding="{Binding Start_Date, StringFormat={}{0:M/d/yyyy h:mm:ss tt}}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
                     </Grid>
 
                     <Grid x:Name="grid_EventButtons" Background="#FFD5D5D5" Grid.Row="1" VerticalAlignment="Bottom">
@@ -38,8 +62,8 @@
                         </Grid.ColumnDefinitions>
 
                         <Button Content="Queue Event" x:Name="btn_QueueEvent" Grid.Row="0" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-                        <Button Content="Refresh" x:Name="btn_RefreshEvents" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-                        <Button Content="Queue Workflow" x:Name="btn_QueueWorkflow" Grid.Row="0" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                        <Button Content="Queue Workflow" x:Name="btn_QueueWorkflow" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                        <Button Content="Refresh" x:Name="btn_RefreshEvents" Grid.Row="0" Grid.Column="3" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
                     </Grid>
                 </Grid>
             </TabItem>

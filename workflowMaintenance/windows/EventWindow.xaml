@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:workflowMaintenance"
         mc:Ignorable="d"
         Title="Queue Event" Height="450" Width="800">
-    <Grid x:Name="grid_ActionContainer" Background="#FFE5E5E5">
+    <Grid x:Name="grid_EventContainer" Background="#FFE5E5E5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid x:Name="grid_UpdateAction" Background="#FFE5E5E5" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+        <Grid x:Name="grid_CreateEvent" Background="#FFE5E5E5" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -46,7 +46,17 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Button Content="Save" x:Name="btn_SaveEvent" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Save" x:Name="btn_SaveEvent" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+            <Button Content="Cancel Event" x:Name="btn_CancelEvent" Grid.Column="3" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
         </Grid>
     </Grid>
 </Window>

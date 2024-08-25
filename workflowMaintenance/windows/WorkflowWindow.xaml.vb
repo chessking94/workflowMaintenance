@@ -1,5 +1,6 @@
 ﻿Imports System.Data
 Imports Microsoft.Data.SqlClient
+Imports System.Windows.Forms
 
 Partial Public Class WorkflowWindow
     Private workflowID As Integer
@@ -80,7 +81,7 @@ Partial Public Class WorkflowWindow
 
         'perform create/update
         If validationFailReason <> "" Then
-            MessageBox.Show($"Pre-validation failed: {validationFailReason}", "Result", MessageBoxButton.OK, MessageBoxImage.Error)
+            MessageBox.Show($"Pre-validation failed: {validationFailReason}", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Else
             Using command As New SqlCommand
                 command.Connection = MainWindow.db_Connection
@@ -101,18 +102,18 @@ Partial Public Class WorkflowWindow
 
                     workflowID = Convert.ToInt32(rtnval.Value)
                     If workflowID > 0 Then
-                        MessageBox.Show($"Workflow {workflowID} successfully created", "Result", MessageBoxButton.OK, MessageBoxImage.Information)
+                        MessageBox.Show($"Workflow {workflowID} successfully created", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information)
                         Me.Close()
                     Else
                         'something failed, Select Case the causes returned
                         Select Case workflowID
                         'TODO: highlight the bad fields?
                             Case -1
-                                MessageBox.Show("Unable to create workflow, missing name", "Result", MessageBoxButton.OK, MessageBoxImage.Error)
+                                MessageBox.Show("Unable to create workflow, missing name", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
                             Case -2
-                                MessageBox.Show("Unable to create workflow, missing description", "Result", MessageBoxButton.OK, MessageBoxImage.Error)
+                                MessageBox.Show("Unable to create workflow, missing description", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
                             Case Else
-                                MessageBox.Show("Unable to create workflow, unknown error", "Result", MessageBoxButton.OK, MessageBoxImage.Error)
+                                MessageBox.Show("Unable to create workflow, unknown error", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         End Select
                     End If
                 Else
@@ -129,12 +130,12 @@ Partial Public Class WorkflowWindow
                     Dim result As Integer = Convert.ToInt32(rtnval.Value)
                     Select Case result
                         Case 0
-                            MessageBox.Show("Update successful", "Result", MessageBoxButton.OK, MessageBoxImage.Information)
+                            MessageBox.Show("Update successful", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information)
                             Me.Close()
                         Case 1
-                            MessageBox.Show("Update failed, nothing updated", "Result", MessageBoxButton.OK, MessageBoxImage.Warning)
+                            MessageBox.Show("Update failed, nothing updated", "Result", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                         Case Else
-                            MessageBox.Show("Update failed, unknown error", "Result", MessageBoxButton.OK, MessageBoxImage.Error)
+                            MessageBox.Show("Update failed, unknown error", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End Select
                 End If
             End Using

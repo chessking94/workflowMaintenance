@@ -2,6 +2,7 @@
 Imports System.Collections.ObjectModel
 Imports System.Data
 Imports System.IO
+Imports System.Windows.Forms
 
 Partial Public Class MainWindow
     Friend Shared myConfig As New Utilities_NetCore.clsConfig
@@ -35,11 +36,21 @@ Partial Public Class MainWindow
 #End Region
 
 #Region "Events"
+    Private Sub Hyperlink_EventID(sender As Object, e As RoutedEventArgs)
+        Dim hyperlink As Hyperlink = CType(sender, Hyperlink)
+        Dim run As Run = CType(hyperlink.Inlines.FirstInline, Run)
+        Dim eventID As Integer = Convert.ToInt32(run.Text)
+
+        Dim eventWindow As New EventWindow(eventID)
+        eventWindow.Show()
+    End Sub
+
     Friend Sub RefreshEvents() Handles tab_Events.Loaded, btn_RefreshEvents.Click
         Using command As New SqlCommand
             command.Connection = db_Connection
             command.CommandType = Data.CommandType.Text
             command.CommandText = modQueries.ActiveEvents()
+            command.Parameters.AddWithValue("@eventID", -1)
 
             Dim dataTable As New DataTable()
             Dim adapter As New SqlDataAdapter(command)
@@ -55,7 +66,7 @@ Partial Public Class MainWindow
     End Sub
 
     Private Sub QueueWorkflow() Handles btn_QueueWorkflow.Click
-        MessageBox.Show("This feature has not yet been built.", "Info", MessageBoxButton.OK, MessageBoxImage.Warning)
+        MessageBox.Show("This feature has not yet been built.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Warning)
     End Sub
 #End Region
 
@@ -282,7 +293,7 @@ Partial Public Class MainWindow
                 Case 0
                     BuildWorkflowList()
                 Case -1
-                    MessageBox.Show("Unable to save workflow actions, non-terminal events exist", "Result", MessageBoxButton.OK, MessageBoxImage.Error)
+                    MessageBox.Show("Unable to save workflow actions, non-terminal events exist", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Select
         End Using
     End Sub
