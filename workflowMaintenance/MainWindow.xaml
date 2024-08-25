@@ -9,29 +9,37 @@
 
     <Grid>
         <TabControl>
-            <TabItem Header="Home" x:Name="tab_Home">
-                <Grid x:Name="grid_HomeContainer" Background="#FFE5E5E5">
+            <TabItem Header="Events" x:Name="tab_Events">
+                <Grid x:Name="grid_EventContainer" Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Grid x:Name="grid_HomeTop" Background="#FFE5E5E5" Grid.Row="0" VerticalAlignment="Top">
+                    <Grid x:Name="grid_EventTop" Background="#FFE5E5E5" Grid.Row="0" VerticalAlignment="Top">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <TextBox x:Name="txt_HomeDesc" Grid.Row="0" TextWrapping="Wrap" Text="Active Events" IsEnabled="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                        <TextBox x:Name="txt_EventDesc" Grid.Row="0" TextWrapping="Wrap" Text="Active Events" IsEnabled="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                         <DataGrid x:Name="dg_ActiveEvents" Grid.Row="1" IsReadOnly="True" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
                     </Grid>
 
-                    <Grid x:Name="grid_HomeBottom" Background="#FFD5D5D5" Grid.Row="1" VerticalAlignment="Bottom">
+                    <Grid x:Name="grid_EventButtons" Background="#FFD5D5D5" Grid.Row="1" VerticalAlignment="Bottom">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <Button Content="Refresh" x:Name="btn_RefreshHome" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Content="Queue Event" x:Name="btn_QueueEvent" Grid.Row="0" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                        <Button Content="Refresh" x:Name="btn_RefreshEvents" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                        <Button Content="Queue Workflow" x:Name="btn_QueueWorkflow" Grid.Row="0" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
                     </Grid>
                 </Grid>
             </TabItem>

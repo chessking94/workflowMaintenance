@@ -47,6 +47,7 @@ Partial Public Class WorkflowActionWindow
             command.Parameters.AddWithValue("@actionID", -1)
             With command.ExecuteReader
                 While .Read
+                    'intentionally allowing inactive actions to be included in the ComboBox; may be nice for initial workflow configuration
                     list_actions.Add(.GetString("Name"))
                 End While
                 .Close()

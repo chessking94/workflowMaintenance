@@ -34,8 +34,8 @@ Partial Public Class MainWindow
     End Sub
 #End Region
 
-#Region "Home"
-    Private Sub RefreshHome() Handles tab_Home.Loaded, btn_RefreshHome.Click
+#Region "Events"
+    Friend Sub RefreshEvents() Handles tab_Events.Loaded, btn_RefreshEvents.Click
         Using command As New SqlCommand
             command.Connection = db_Connection
             command.CommandType = Data.CommandType.Text
@@ -47,6 +47,15 @@ Partial Public Class MainWindow
 
             dg_ActiveEvents.ItemsSource = dataTable.DefaultView
         End Using
+    End Sub
+
+    Private Sub QueueEvent() Handles btn_QueueEvent.Click
+        Dim eventWindow As New EventWindow()
+        eventWindow.Show()
+    End Sub
+
+    Private Sub QueueWorkflow() Handles btn_QueueWorkflow.Click
+        MessageBox.Show("This feature has not yet been built.", "Info", MessageBoxButton.OK, MessageBoxImage.Warning)
     End Sub
 #End Region
 

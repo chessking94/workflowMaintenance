@@ -1,0 +1,52 @@
+﻿<Window x:Class="EventWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:workflowMaintenance"
+        mc:Ignorable="d"
+        Title="Queue Event" Height="450" Width="800">
+    <Grid x:Name="grid_ActionContainer" Background="#FFE5E5E5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="grid_UpdateAction" Background="#FFE5E5E5" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label x:Name="label_ActionName" Content="Action Name" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
+            <Label x:Name="label_EventParameters" Content="Parameters" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
+            <Label x:Name="label_EventStartTime" Content="Start Time" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="2"/>
+            <Label x:Name="label_EventStartDate" Content="Start Date" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="3"/>
+
+            <ComboBox x:Name="combo_ActionName" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="0"/>
+            <TextBox x:Name="tb_EventParameters" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1"/>
+            <ComboBox x:Name="combo_StartTime" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="2"/>
+            <DatePicker x:Name="dp_StartDate" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="3"/>
+        </Grid>
+
+        <Grid x:Name="grid_EventButtons" Background="#FFE5E5E5" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Button Content="Save" x:Name="btn_SaveEvent" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+        </Grid>
+    </Grid>
+</Window>
