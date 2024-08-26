@@ -61,12 +61,13 @@ Partial Public Class MainWindow
     End Sub
 
     Private Sub QueueEvent() Handles btn_QueueEvent.Click
-        Dim eventWindow As New EventWindow()
+        Dim eventWindow As New EventWindow(False)
         eventWindow.Show()
     End Sub
 
     Private Sub QueueWorkflow() Handles btn_QueueWorkflow.Click
-        MessageBox.Show("This feature has not yet been built.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        Dim eventWindow As New EventWindow(True)
+        eventWindow.Show()
     End Sub
 #End Region
 

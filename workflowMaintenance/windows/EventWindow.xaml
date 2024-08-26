@@ -30,12 +30,12 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label x:Name="label_ActionName" Content="Action Name" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
+            <Label x:Name="label_Name" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
             <Label x:Name="label_EventParameters" Content="Parameters" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
             <Label x:Name="label_EventStartTime" Content="Start Time" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="2"/>
             <Label x:Name="label_EventStartDate" Content="Start Date" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="3"/>
 
-            <ComboBox x:Name="combo_ActionName" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="0"/>
+            <ComboBox x:Name="combo_Name" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="0"/>
             <TextBox x:Name="tb_EventParameters" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1"/>
             <ComboBox x:Name="combo_StartTime" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="2"/>
             <DatePicker x:Name="dp_StartDate" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="3"/>
