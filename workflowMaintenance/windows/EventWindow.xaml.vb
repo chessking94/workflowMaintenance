@@ -28,7 +28,6 @@ Partial Public Class EventWindow
 
     Private Sub LoadWindow() Handles Me.Loaded
         'populate item source for StartTime
-        'TODO: Do I want these values to come from a database table?
         Dim list_StartTimes As New List(Of String) From {runNowTime}  'initialize with the "run now" option, since it is not a time
         Dim iterableTime As DateTime = DateTime.Parse("12:00 AM")
         While iterableTime < DateTime.Parse("11:55 PM")
@@ -221,10 +220,16 @@ Partial Public Class EventWindow
                                 MessageBox.Show("Unable to create event, no action name provided", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
                             End If
                         Case -2
-                            MessageBox.Show("Unable to create event, no actions configured for workflow", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                            MessageBox.Show("Unable to create event, workflow is inactive", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         Case -3
-                            MessageBox.Show("Unable to create event, workflow does not exist", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                            MessageBox.Show("Unable to create event, no actions configured for workflow", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         Case -4
+                            MessageBox.Show("Unable to create event, active workflow events", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        Case -5
+                            MessageBox.Show("Unable to create event, workflow does not exist", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        Case -6
+                            MessageBox.Show("Unable to create event, action is inactive", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        Case -7
                             MessageBox.Show("Unable to create event, action does not exist", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         Case Else
                             MessageBox.Show("Unable to create event, unknown error", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)

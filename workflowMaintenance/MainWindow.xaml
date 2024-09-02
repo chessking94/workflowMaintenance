@@ -23,7 +23,6 @@
                         </Grid.RowDefinitions>
 
                         <TextBox x:Name="txt_EventDesc" Grid.Row="0" TextWrapping="Wrap" Text="Active Events" IsEnabled="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                        <!-- <DataGrid x:Name="dg_ActiveEvents" Grid.Row="1" IsReadOnly="True" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/> -->
 
                         <DataGrid x:Name="dg_ActiveEvents" AutoGenerateColumns="False" Grid.Row="1" IsReadOnly="True" HorizontalAlignment="Center" HorizontalContentAlignment="Center">
                             <DataGrid.Columns>
@@ -153,7 +152,7 @@
                                 <DataGridCheckBoxColumn Header="Require Parameters" Binding="{Binding Require_Parameters}"/>
                                 <DataGridTextColumn Header="Concurrency" Binding="{Binding Concurrency}"/>
                                 <DataGridCheckBoxColumn Header="Log Output" Binding="{Binding Log_Output}"/>
-                                <DataGridTextColumn Header="Application ID" Binding="{Binding Application_ID}"/>
+                                <DataGridTextColumn Header="Application Name" Binding="{Binding Application_Name}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
@@ -205,6 +204,7 @@
                                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                                 <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
                                 <DataGridCheckBoxColumn Header="Active" Binding="{Binding Active}"/>
+                                <DataGridTextColumn Header="Schedule" Binding="{Binding Schedule_Name}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
@@ -308,6 +308,61 @@
 
                         <Button Content="Save" x:Name="btn_SaveWFActions" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
                         <Button Content="Reset" x:Name="btn_ResetWFActions" Grid.Column="3" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Schedules" x:Name="tab_Schedules">
+                <Grid x:Name="grid_ScheduleContainer" Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid x:Name="grid_ScheduleTop" Background="#FFE5E5E5" Grid.Row="0" VerticalAlignment="Top">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <DataGrid x:Name="dg_Schedules" AutoGenerateColumns="False" Grid.Row="1" IsReadOnly="True" HorizontalAlignment="Center" HorizontalContentAlignment="Center">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="ID">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                                <Hyperlink Click="Hyperlink_ScheduleID">
+                                                    <Run Text="{Binding ID}" />
+                                                </Hyperlink>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <!-- other columns go here -->
+                                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                                <DataGridCheckBoxColumn Header="Active" Binding="{Binding Active}"/>
+                                <DataGridTextColumn Header="Start Date" Binding="{Binding Start_Date, StringFormat={}{0:M/d/yyyy}}"/>
+                                <DataGridTextColumn Header="End Date" Binding="{Binding End_Date, StringFormat={}{0:M/d/yyyy}}"/>
+                                <DataGridTextColumn Header="Run Time" Binding="{Binding Run_Time, StringFormat={}{0:h:mm tt}}"/>
+                                <DataGridTextColumn Header="Recurrence Name" Binding="{Binding Recurrence_Name}"/>
+                                <DataGridTextColumn Header="Recurrence Inverval" Binding="{Binding Recurrence_Interval}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+
+                    <Grid x:Name="grid_ScheduleBottom" Background="#FFD5D5D5" Grid.Row="1" VerticalAlignment="Bottom">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Content="Refresh" x:Name="btn_RefreshSchedule" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                        <Button Content="Add New" x:Name="btn_AddSchedule" Grid.Column="3" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
                     </Grid>
                 </Grid>
             </TabItem>

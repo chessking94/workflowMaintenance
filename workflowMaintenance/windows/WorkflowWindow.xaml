@@ -19,6 +19,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -30,11 +31,13 @@
             <Label x:Name="label_Name" Content="Name" HorizontalAlignment="Center"  Grid.Column="0" Grid.Row="1"/>
             <Label x:Name="label_Description" Content="Description" HorizontalAlignment="Center"  Grid.Column="0" Grid.Row="2"/>
             <Label x:Name="label_Active" Content="Active" HorizontalAlignment="Center"  Grid.Column="0" Grid.Row="3"/>
+            <Label x:Name="label_Schedule" Content="Schedule" HorizontalAlignment="Center"  Grid.Column="0" Grid.Row="4"/>
 
             <TextBox x:Name="tb_ID" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="0" IsEnabled="False"/>
             <TextBox x:Name="tb_Name" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1"/>
             <TextBox x:Name="tb_Description" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="2"/>
             <CheckBox x:Name="cb_Active" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="3"/>
+            <ComboBox x:Name="combo_scheduleName" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="4"/>
         </Grid>
 
         <Grid x:Name="grid_WorkflowButtons" Background="#FFE5E5E5" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top">

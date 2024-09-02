@@ -18,11 +18,6 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -30,7 +25,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label x:Name="label_Name" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
+            <Label x:Name="label_Name" Content="Action Name" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
             <Label x:Name="label_EventParameters" Content="Parameters" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
             <Label x:Name="label_EventStartTime" Content="Start Time" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="2"/>
             <Label x:Name="label_EventStartDate" Content="Start Date" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="3"/>

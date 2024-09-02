@@ -1,0 +1,59 @@
+﻿<Window x:Class="ScheduleWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:workflowMaintenance"
+        mc:Ignorable="d"
+        Title="Update Schedule" Height="450" Width="800">
+    <Grid x:Name="grid_ScheduleContainer" Background="#FFE5E5E5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="grid_UpdateSchedule" Background="#FFE5E5E5" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label x:Name="label_ID" Content="ID" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
+            <Label x:Name="label_Name" Content="Name" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
+            <Label x:Name="label_Active" Content="Active" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="2"/>
+            <Label x:Name="label_StartDate" Content="Start Date" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="3"/>
+            <Label x:Name="label_EndDate" Content="End Date" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="4"/>
+            <Label x:Name="label_RunTime" Content="Run Time" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="5"/>
+            <Label x:Name="label_RecurName" Content="Recurrence Name" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="6"/>
+            <Label x:Name="label_RecurInterval" Content="Recurrence Interval" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="7"/>
+
+            <TextBox x:Name="tb_ID" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="0" IsEnabled="False"/>
+            <TextBox x:Name="tb_Name" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1"/>
+            <CheckBox x:Name="cb_Active" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="2"/>
+            <DatePicker x:Name="dp_StartDate" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="3"/>
+            <DatePicker x:Name="dp_EndDate" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="4"/>
+            <ComboBox x:Name="combo_RunTime" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="5"/>
+            <ComboBox x:Name="combo_recurrenceName" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="6"/>
+            <ComboBox x:Name="combo_recurrenceInterval" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="7"/>
+        </Grid>
+
+        <Grid x:Name="grid_ScheduleButtons" Background="#FFE5E5E5" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Button Content="Save" x:Name="btn_SaveSchedule" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+        </Grid>
+    </Grid>
+</Window>

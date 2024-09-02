@@ -33,17 +33,19 @@ Partial Public Class ActionWindow
                 .Close()
             End With
 
-            Dim combobox_items As New List(Of String) From {""}  'initialize with an empty string
+            Dim list_applications As New List(Of String) From {""}  'initialize with an empty string
             command.Parameters.Clear()
             command.CommandText = modQueries.Applications()
             command.Parameters.AddWithValue("@applicationID", -1)
             With command.ExecuteReader
                 While .Read
-                    combobox_items.Add(.Item("ID"))
+                    'intentionally allowing inactive applications to be included in the ComboBox; may be nice for initial workflow configuration
+                    list_applications.Add(.GetString("Name"))
                 End While
                 .Close()
             End With
-            combo_ApplicationID.ItemsSource = combobox_items
+            list_applications.Sort()
+            combo_ApplicationName.ItemsSource = list_applications
 
             If actionID = 0 Then
                 tb_ID.Text = "(new)"
@@ -61,7 +63,7 @@ Partial Public Class ActionWindow
                         cb_RequireParameters.IsChecked = (.GetBoolean("Require_Parameters") = True)
                         tb_Concurrency.Text = .GetByte("Concurrency")
                         cb_LogOutput.IsChecked = (.GetBoolean("Log_Output") = True)
-                        combo_ApplicationID.SelectedValue = If(.IsDBNull(.GetOrdinal("Application_ID")), "", .GetInt32("Application_ID").ToString)
+                        combo_ApplicationName.SelectedValue = If(.IsDBNull(.GetOrdinal("Application_Name")), "", .GetString("Application_Name"))
                     End While
                     .Close()
                 End With
@@ -86,13 +88,13 @@ Partial Public Class ActionWindow
         'validate data
         If validationFailReason = "" Then
             If String.IsNullOrWhiteSpace(tb_Name.Text) Then
-                validationFailReason = $"Invalid name"
+                validationFailReason = "Invalid name"
             End If
         End If
 
         If validationFailReason = "" Then
             If String.IsNullOrWhiteSpace(tb_Description.Text) Then
-                validationFailReason = $"Invalid description"
+                validationFailReason = "Invalid description"
             End If
         End If
 
@@ -115,7 +117,7 @@ Partial Public Class ActionWindow
                 command.Parameters.AddWithValue("@actionRequireParameters", If(cb_RequireParameters.IsChecked, 1, 0))
                 command.Parameters.AddWithValue("@actionConcurrency", tb_Concurrency.Text)
                 command.Parameters.AddWithValue("@actionLogOutput", If(cb_LogOutput.IsChecked, 1, 0))
-                command.Parameters.AddWithValue("@applicationID", If(combo_ApplicationID.SelectedValue = "", DBNull.Value, Convert.ToInt32(combo_ApplicationID.SelectedValue)))
+                command.Parameters.AddWithValue("@applicationName", If(combo_ApplicationName.SelectedValue = "", DBNull.Value, combo_ApplicationName.SelectedValue))
 
                 If actionID = 0 Then
                     'new action

@@ -52,7 +52,7 @@ actionActive AS [Active],
 actionRequireParameters AS [Require_Parameters],
 actionConcurrency AS [Concurrency],
 actionLogOutput AS [Log_Output],
-applicationID AS [Application_ID]
+applicationName AS [Application_Name]
 
 FROM vwActions
 
@@ -69,7 +69,8 @@ SELECT
 workflowID AS [ID],
 workflowName AS [Name],
 workflowDescription AS [Description],
-workflowActive AS [Active]
+workflowActive AS [Active],
+scheduleName AS [Schedule_Name]
 
 FROM vwWorkflows
 
@@ -113,6 +114,38 @@ JOIN dbo.Workflows w ON
 	stg.workflowID = w.workflowID
 
 WHERE w.workflowName = @workflowName
+"
+	End Function
+#End Region
+
+#Region "Schedules"
+	Friend Function Schedules() As String
+		Return _
+"
+SELECT
+scheduleID AS [ID],
+scheduleName AS [Name],
+scheduleActive AS [Active],
+scheduleStartDate AS [Start_Date],
+scheduleEndDate AS [End_Date],
+CONVERT(datetime, scheduleRunTime) AS [Run_Time],
+recurrenceName AS [Recurrence_Name],
+recurrenceInterval AS [Recurrence_Interval]
+
+FROM vwSchedules
+
+WHERE scheduleID = @scheduleID OR ISNULL(@scheduleID, -1) = -1
+"
+	End Function
+
+	Friend Function Recurrences() As String
+		Return _
+"
+SELECT
+recurrenceID,
+recurrenceName
+
+FROM dbo.Recurrences
 "
 	End Function
 #End Region

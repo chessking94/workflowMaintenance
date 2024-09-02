@@ -77,13 +77,13 @@ Partial Public Class ApplicationWindow
         'validate data
         If validationFailReason = "" Then
             If String.IsNullOrWhiteSpace(tb_Name.Text) Then
-                validationFailReason = $"Invalid name"
+                validationFailReason = "Invalid name"
             End If
         End If
 
         If validationFailReason = "" Then
             If String.IsNullOrWhiteSpace(tb_Description.Text) Then
-                validationFailReason = $"Invalid description"
+                validationFailReason = "Invalid description"
             End If
         End If
 

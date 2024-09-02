@@ -33,6 +33,20 @@ Partial Public Class WorkflowWindow
                 .Close()
             End With
 
+            Dim list_schedules As New List(Of String) From {""}  'initialize with an empty string for potential non-schedules
+            command.Parameters.Clear()
+            command.CommandText = modQueries.Schedules()
+            command.Parameters.AddWithValue("@scheduleID", -1)
+            With command.ExecuteReader
+                While .Read
+                    'intentionally allowing inactive schedules to be included in the ComboBox; may be nice for initial workflow configuration
+                    list_schedules.Add(.GetString("Name"))
+                End While
+                .Close()
+            End With
+            list_schedules.Sort()
+            combo_scheduleName.ItemsSource = list_schedules
+
             If workflowID = 0 Then
                 tb_ID.Text = "(new)"
             Else
@@ -46,6 +60,7 @@ Partial Public Class WorkflowWindow
                         tb_Name.Text = .GetString("Name")
                         tb_Description.Text = .GetString("Description")
                         cb_Active.IsChecked = (.GetBoolean("Active") = True)
+                        combo_scheduleName.SelectedValue = If(.IsDBNull(.GetOrdinal("Schedule_Name")), DBNull.Value, .GetString("Schedule_Name"))
                     End While
                     .Close()
                 End With
@@ -69,13 +84,13 @@ Partial Public Class WorkflowWindow
         'validate data
         If validationFailReason = "" Then
             If String.IsNullOrWhiteSpace(tb_Name.Text) Then
-                validationFailReason = $"Invalid name"
+                validationFailReason = "Invalid name"
             End If
         End If
 
         If validationFailReason = "" Then
             If String.IsNullOrWhiteSpace(tb_Description.Text) Then
-                validationFailReason = $"Invalid description"
+                validationFailReason = "Invalid description"
             End If
         End If
 
@@ -89,6 +104,7 @@ Partial Public Class WorkflowWindow
                 command.Parameters.AddWithValue("@workflowName", tb_Name.Text)
                 command.Parameters.AddWithValue("@workflowDescription", tb_Description.Text)
                 command.Parameters.AddWithValue("@workflowActive", If(cb_Active.IsChecked, 1, 0))
+                command.Parameters.AddWithValue("@scheduleName", If(combo_scheduleName.SelectedValue = "", DBNull.Value, combo_scheduleName.SelectedValue))
 
                 If workflowID = 0 Then
                     'new application
