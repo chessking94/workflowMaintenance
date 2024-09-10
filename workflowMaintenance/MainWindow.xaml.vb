@@ -13,16 +13,15 @@ Partial Public Class MainWindow
 
 #Region "Window Events"
     Private Sub WindowLoaded() Handles Me.Loaded
+#If DEBUG Then
         projectDir = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\.."))
+#Else
+        projectDir = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ".."))
+#End If
         Dim configFile As String = Path.Combine(projectDir, "appsettings.json")
         myConfig.configFile = configFile
 
-#If DEBUG Then
-        Dim connectionString As String = myConfig.getConfig("connectionStringDev")
-#Else
-        Dim connectionString As String = myConfig.getConfig("connectionStringProd")
-#End If
-
+        Dim connectionString As String = myConfig.getConfig("connectionString")
         db_Connection = Utilities_NetCore.Connection(connectionString)
     End Sub
 
