@@ -164,7 +164,7 @@ Partial Public Class MainWindow
 #End Region
 
 #Region "Workflow Actions"
-    Private Sub BuildWorkflowList() Handles tab_WorkflowActions.Loaded, btn_ResetWFActions.Click
+    Friend Sub BuildWorkflowList() Handles tab_WorkflowActions.Loaded, btn_ResetWFActions.Click
         combo_workflowName.IsEnabled = True
         btn_AddWFAction.IsEnabled = False
         combo_workflowName.SelectedValue = ""

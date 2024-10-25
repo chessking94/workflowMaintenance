@@ -72,6 +72,7 @@ Partial Public Class WorkflowWindow
         'when the window closes, refresh the original DataGrid
         Dim mainWindow As MainWindow = CType(Application.Current.MainWindow, MainWindow)
         mainWindow.RefreshWorkflows()
+        mainWindow.BuildWorkflowList()
     End Sub
 
     Private Sub SaveWorkflow() Handles btn_SaveWorkflow.Click
