@@ -1,6 +1,6 @@
-﻿Imports Microsoft.Data.SqlClient
-Imports System.Data
+﻿Imports System.Data
 Imports System.Windows.Forms
+Imports Microsoft.Data.SqlClient
 
 Partial Public Class WorkflowActionWindow
     Private workflowName As String
@@ -19,7 +19,7 @@ Partial Public Class WorkflowActionWindow
     Private Sub LoadRecord() Handles Me.Loaded
         Using command As New SqlCommand
             command.Connection = MainWindow.db_Connection
-            command.CommandType = Data.CommandType.Text
+            command.CommandType = CommandType.Text
             command.CommandText = modQueries.ColumnLengths()
             command.Parameters.AddWithValue("@schemaName", "dbo")
             command.Parameters.AddWithValue("@tableName", "WorkflowActions")
@@ -63,7 +63,7 @@ Partial Public Class WorkflowActionWindow
                 stepNumber = nextStepNumber
 
                 command.Parameters.Clear()
-                command.CommandType = Data.CommandType.StoredProcedure
+                command.CommandType = CommandType.StoredProcedure
                 command.CommandText = "dbo.insertWorkflowAction"
                 command.Parameters.AddWithValue("@workflowName", workflowName)
                 command.Parameters.AddWithValue("@stepNumber", nextStepNumber)
@@ -143,7 +143,7 @@ Partial Public Class WorkflowActionWindow
         Else
             Using command As New SqlCommand
                 command.Connection = MainWindow.db_Connection
-                command.CommandType = Data.CommandType.StoredProcedure
+                command.CommandType = CommandType.StoredProcedure
                 command.CommandText = "dbo.saveWorkflowAction"
                 command.Parameters.AddWithValue("@stagingKey", stagingKey)
                 command.Parameters.AddWithValue("@stepNumber", combo_stepNumber.SelectedValue)
@@ -160,7 +160,7 @@ Partial Public Class WorkflowActionWindow
     Private Sub DeleteWorkflowAction() Handles btn_DeleteWorkflowAction.Click
         Using command As New SqlCommand
             command.Connection = MainWindow.db_Connection
-            command.CommandType = Data.CommandType.StoredProcedure
+            command.CommandType = CommandType.StoredProcedure
             command.CommandText = "dbo.deleteWorkflowAction"
             command.Parameters.AddWithValue("@stagingKey", stagingKey)
             command.ExecuteNonQuery()

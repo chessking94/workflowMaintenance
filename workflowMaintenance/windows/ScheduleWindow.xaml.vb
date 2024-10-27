@@ -16,7 +16,7 @@ Partial Public Class ScheduleWindow
     Private Sub LoadRecord() Handles Me.Loaded
         Using command As New SqlCommand
             command.Connection = MainWindow.db_Connection
-            command.CommandType = Data.CommandType.Text
+            command.CommandType = CommandType.Text
             command.CommandText = modQueries.ColumnLengths()
             command.Parameters.AddWithValue("@schemaName", "dbo")
             command.Parameters.AddWithValue("@tableName", "Schedules")
@@ -180,7 +180,7 @@ Partial Public Class ScheduleWindow
         Else
             Using command As New SqlCommand
                 command.Connection = MainWindow.db_Connection
-                command.CommandType = Data.CommandType.StoredProcedure
+                command.CommandType = CommandType.StoredProcedure
                 command.Parameters.AddWithValue("@scheduleName", tb_Name.Text)
                 command.Parameters.AddWithValue("@scheduleActive", If(cb_Active.IsChecked, 1, 0))
                 command.Parameters.AddWithValue("@scheduleStartDate", dp_StartDate.SelectedDate)

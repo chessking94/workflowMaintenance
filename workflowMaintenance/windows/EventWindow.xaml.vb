@@ -1,6 +1,6 @@
-﻿Imports Microsoft.Data.SqlClient
-Imports System.Data
+﻿Imports System.Data
 Imports System.Windows.Forms
+Imports Microsoft.Data.SqlClient
 
 Partial Public Class EventWindow
     Private isWorkflow As Boolean
@@ -51,7 +51,7 @@ Partial Public Class EventWindow
                 Dim list_names As New List(Of String)
 
                 command.Connection = MainWindow.db_Connection
-                command.CommandType = Data.CommandType.Text
+                command.CommandType = CommandType.Text
                 command.CommandText = modQueries.Workflows()
                 command.Parameters.AddWithValue("@workflowID", -1)
                 With command.ExecuteReader
@@ -71,7 +71,7 @@ Partial Public Class EventWindow
                     actionRequiresParameters.Clear()
 
                     command.Connection = MainWindow.db_Connection
-                    command.CommandType = Data.CommandType.Text
+                    command.CommandType = CommandType.Text
                     command.CommandText = modQueries.ColumnLengths()
                     command.Parameters.AddWithValue("@schemaName", "dbo")
                     command.Parameters.AddWithValue("@tableName", "Events")
@@ -113,7 +113,7 @@ Partial Public Class EventWindow
                 'populate existing values
                 Using command As New SqlCommand
                     command.Connection = MainWindow.db_Connection
-                    command.CommandType = Data.CommandType.Text
+                    command.CommandType = CommandType.Text
                     command.CommandText = modQueries.ActiveEvents()
                     command.Parameters.AddWithValue("@eventID", eventID)
 
@@ -180,7 +180,7 @@ Partial Public Class EventWindow
         Else
             Using command As New SqlCommand
                 command.Connection = MainWindow.db_Connection
-                command.CommandType = Data.CommandType.StoredProcedure
+                command.CommandType = CommandType.StoredProcedure
                 If isWorkflow Then
                     command.Parameters.AddWithValue("@workflowName", combo_Name.SelectedValue)
                 Else
@@ -245,7 +245,7 @@ Partial Public Class EventWindow
         If userChoice = MessageBoxResult.Yes Then
             Using command As New SqlCommand
                 command.Connection = MainWindow.db_Connection
-                command.CommandType = Data.CommandType.StoredProcedure
+                command.CommandType = CommandType.StoredProcedure
                 command.CommandText = "dbo.updateEventStatus"
                 command.Parameters.AddWithValue("@eventID", eventID)
                 command.Parameters.AddWithValue("@eventStatus", "Cancelled")

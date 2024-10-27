@@ -1,6 +1,6 @@
 ﻿Imports System.Data
-Imports Microsoft.Data.SqlClient
 Imports System.Windows.Forms
+Imports Microsoft.Data.SqlClient
 
 Partial Public Class WorkflowWindow
     Private workflowID As Integer
@@ -16,7 +16,7 @@ Partial Public Class WorkflowWindow
     Private Sub LoadRecord() Handles Me.Loaded
         Using command As New SqlCommand
             command.Connection = MainWindow.db_Connection
-            command.CommandType = Data.CommandType.Text
+            command.CommandType = CommandType.Text
             command.CommandText = modQueries.ColumnLengths()
             command.Parameters.AddWithValue("@schemaName", "dbo")
             command.Parameters.AddWithValue("@tableName", "Workflows")
@@ -101,7 +101,7 @@ Partial Public Class WorkflowWindow
         Else
             Using command As New SqlCommand
                 command.Connection = MainWindow.db_Connection
-                command.CommandType = Data.CommandType.StoredProcedure
+                command.CommandType = CommandType.StoredProcedure
                 command.Parameters.AddWithValue("@workflowName", tb_Name.Text)
                 command.Parameters.AddWithValue("@workflowDescription", tb_Description.Text)
                 command.Parameters.AddWithValue("@workflowActive", If(cb_Active.IsChecked, 1, 0))

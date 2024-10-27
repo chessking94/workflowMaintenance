@@ -1,6 +1,6 @@
-﻿Imports Microsoft.Data.SqlClient
-Imports System.Data
+﻿Imports System.Data
 Imports System.Windows.Forms
+Imports Microsoft.Data.SqlClient
 
 Partial Public Class ActionWindow
     Private actionID As Integer
@@ -16,7 +16,7 @@ Partial Public Class ActionWindow
     Private Sub LoadRecord() Handles Me.Loaded
         Using command As New SqlCommand
             command.Connection = MainWindow.db_Connection
-            command.CommandType = Data.CommandType.Text
+            command.CommandType = CommandType.Text
             command.CommandText = modQueries.ColumnLengths()
             command.Parameters.AddWithValue("@schemaName", "dbo")
             command.Parameters.AddWithValue("@tableName", "Actions")
@@ -110,7 +110,7 @@ Partial Public Class ActionWindow
         Else
             Using command As New SqlCommand
                 command.Connection = MainWindow.db_Connection
-                command.CommandType = Data.CommandType.StoredProcedure
+                command.CommandType = CommandType.StoredProcedure
                 command.Parameters.AddWithValue("@actionName", tb_Name.Text)
                 command.Parameters.AddWithValue("@actionDescription", tb_Description.Text)
                 command.Parameters.AddWithValue("@actionActive", If(cb_Active.IsChecked, 1, 0))

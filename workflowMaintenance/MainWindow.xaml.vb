@@ -1,8 +1,8 @@
-﻿Imports Microsoft.Data.SqlClient
-Imports System.Collections.ObjectModel
+﻿Imports System.Collections.ObjectModel
 Imports System.Data
 Imports System.IO
 Imports System.Windows.Forms
+Imports Microsoft.Data.SqlClient
 
 Partial Public Class MainWindow
     Friend Shared myConfig As New Utilities_NetCore.clsConfig
@@ -47,7 +47,7 @@ Partial Public Class MainWindow
     Friend Sub RefreshEvents() Handles tab_Events.Loaded, btn_RefreshEvents.Click
         Using command As New SqlCommand
             command.Connection = db_Connection
-            command.CommandType = Data.CommandType.Text
+            command.CommandType = CommandType.Text
             command.CommandText = modQueries.ActiveEvents()
             command.Parameters.AddWithValue("@eventID", -1)
 
@@ -88,7 +88,7 @@ Partial Public Class MainWindow
     Friend Sub RefreshApplications() Handles tab_Applications.Loaded, btn_RefreshApp.Click
         Using command As New SqlCommand
             command.Connection = db_Connection
-            command.CommandType = Data.CommandType.Text
+            command.CommandType = CommandType.Text
             command.CommandText = modQueries.Applications()
             command.Parameters.AddWithValue("@applicationID", -1)
 
@@ -119,7 +119,7 @@ Partial Public Class MainWindow
     Friend Sub RefreshActions() Handles tab_Actions.Loaded, btn_RefreshAction.Click
         Using command As New SqlCommand
             command.Connection = db_Connection
-            command.CommandType = Data.CommandType.Text
+            command.CommandType = CommandType.Text
             command.CommandText = modQueries.Actions()
             command.Parameters.AddWithValue("@actionID", -1)
 
@@ -150,7 +150,7 @@ Partial Public Class MainWindow
     Friend Sub RefreshWorkflows() Handles tab_Workflows.Loaded, btn_RefreshWorkflow.Click
         Using command As New SqlCommand
             command.Connection = db_Connection
-            command.CommandType = Data.CommandType.Text
+            command.CommandType = CommandType.Text
             command.CommandText = modQueries.Workflows()
             command.Parameters.AddWithValue("@workflowID", -1)
 
@@ -173,7 +173,7 @@ Partial Public Class MainWindow
         Using command As New SqlCommand
             Dim combobox_items As New List(Of String)
             command.Connection = db_Connection
-            command.CommandType = Data.CommandType.Text
+            command.CommandType = CommandType.Text
             command.CommandText = modQueries.Workflows()
             command.Parameters.AddWithValue("@workflowID", -1)
 
@@ -205,12 +205,12 @@ Partial Public Class MainWindow
 
             Using command As New SqlCommand
                 command.Connection = db_Connection
-                command.CommandType = Data.CommandType.StoredProcedure
+                command.CommandType = CommandType.StoredProcedure
                 command.CommandText = "dbo.stageWorkflowActions"
                 command.Parameters.AddWithValue("@workflowName", combo_workflowName.SelectedValue)
                 command.ExecuteNonQuery()
 
-                command.CommandType = Data.CommandType.Text
+                command.CommandType = CommandType.Text
                 command.CommandText = modQueries.ShowWorkflowActions()
                 command.Parameters.AddWithValue("@stepNumber", -1)
 
@@ -244,7 +244,7 @@ Partial Public Class MainWindow
 
             Using command As New SqlCommand
                 command.Connection = db_Connection
-                command.CommandType = Data.CommandType.Text
+                command.CommandType = CommandType.Text
                 command.CommandText = modQueries.ShowWorkflowActions()
                 command.Parameters.AddWithValue("@workflowName", combo_workflowName.SelectedValue)
                 command.Parameters.AddWithValue("@stepNumber", -1)
@@ -279,7 +279,7 @@ Partial Public Class MainWindow
     Private Sub SaveWorkflowActions() Handles btn_SaveWFActions.Click
         Using command As New SqlCommand
             command.Connection = db_Connection
-            command.CommandType = Data.CommandType.StoredProcedure
+            command.CommandType = CommandType.StoredProcedure
             command.CommandText = "dbo.createWorkflowActions"
             command.Parameters.AddWithValue("@workflowName", combo_workflowName.SelectedValue)
 
@@ -317,7 +317,7 @@ Partial Public Class MainWindow
     Friend Sub RefreshSchedules() Handles tab_Schedules.Loaded, btn_RefreshSchedule.Click
         Using command As New SqlCommand
             command.Connection = db_Connection
-            command.CommandType = Data.CommandType.Text
+            command.CommandType = CommandType.Text
             command.CommandText = modQueries.Schedules()
             command.Parameters.AddWithValue("@scheduleID", -1)
 
