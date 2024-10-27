@@ -1,6 +1,6 @@
-﻿Imports Microsoft.Data.SqlClient
-Imports System.Data
+﻿Imports System.Data
 Imports System.Windows.Forms
+Imports Microsoft.Data.SqlClient
 
 Partial Public Class ApplicationWindow
     Private applicationID As Integer
@@ -16,7 +16,7 @@ Partial Public Class ApplicationWindow
     Private Sub LoadRecord() Handles Me.Loaded
         Using command As New SqlCommand
             command.Connection = MainWindow.db_Connection
-            command.CommandType = Data.CommandType.Text
+            command.CommandType = CommandType.Text
             command.CommandText = modQueries.ColumnLengths()
             command.Parameters.AddWithValue("@schemaName", "dbo")
             command.Parameters.AddWithValue("@tableName", "Applications")
@@ -87,9 +87,16 @@ Partial Public Class ApplicationWindow
             End If
         End If
 
+        'this is looking on the machine running the app, doesn't work when the server actually running the events is different
+        'If validationFailReason = "" Then
+        '    If Not IO.File.Exists(tb_Filename.Text) Then
+        '        validationFailReason = $"File '{tb_Filename.Text}' does not exist"
+        '    End If
+        'End If
+
         If validationFailReason = "" Then
-            If Not IO.File.Exists(tb_Filename.Text) Then
-                validationFailReason = $"File '{tb_Filename.Text}' does not exist"
+            If String.IsNullOrWhiteSpace(tb_Filename.Text) Then
+                validationFailReason = "Invalid filename"
             End If
         End If
 
@@ -99,7 +106,7 @@ Partial Public Class ApplicationWindow
         Else
             Using command As New SqlCommand
                 command.Connection = MainWindow.db_Connection
-                command.CommandType = Data.CommandType.StoredProcedure
+                command.CommandType = CommandType.StoredProcedure
                 command.Parameters.AddWithValue("@applicationName", tb_Name.Text)
                 command.Parameters.AddWithValue("@applicationDescription", tb_Description.Text)
                 command.Parameters.AddWithValue("@applicationFilename", tb_Filename.Text)
