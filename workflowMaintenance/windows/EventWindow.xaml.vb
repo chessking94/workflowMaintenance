@@ -192,7 +192,7 @@ Partial Public Class EventWindow
                     command.Parameters.AddWithValue("@eventStartDate", dtetme)
                 End If
 
-                command.CommandText = "dbo.createEvent"
+                command.CommandText = "Workflow.dbo.createEvent"
 
                 Dim rtnval As New SqlParameter("@ReturnValue", SqlDbType.Int)
                 rtnval.Direction = ParameterDirection.ReturnValue
@@ -246,7 +246,7 @@ Partial Public Class EventWindow
             Using command As New SqlCommand
                 command.Connection = MainWindow.db_Connection
                 command.CommandType = CommandType.StoredProcedure
-                command.CommandText = "dbo.updateEventStatus"
+                command.CommandText = "Workflow.dbo.updateEventStatus"
                 command.Parameters.AddWithValue("@eventID", eventID)
                 command.Parameters.AddWithValue("@eventStatus", "Cancelled")
 

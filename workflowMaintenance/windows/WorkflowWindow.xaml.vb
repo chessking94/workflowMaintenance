@@ -109,7 +109,7 @@ Partial Public Class WorkflowWindow
 
                 If workflowID = 0 Then
                     'new application
-                    command.CommandText = "dbo.createWorkflow"
+                    command.CommandText = "Workflow.dbo.createWorkflow"
 
                     Dim rtnval As New SqlParameter("@ReturnValue", SqlDbType.Int)
                     rtnval.Direction = ParameterDirection.ReturnValue
@@ -135,7 +135,7 @@ Partial Public Class WorkflowWindow
                     End If
                 Else
                     'updating an existing application
-                    command.CommandText = "dbo.updateWorkflow"
+                    command.CommandText = "Workflow.dbo.updateWorkflow"
                     command.Parameters.AddWithValue("@workflowID", workflowID)
 
                     Dim rtnval As New SqlParameter("@ReturnValue", SqlDbType.Int)

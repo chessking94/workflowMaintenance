@@ -14,7 +14,7 @@ eventStatus AS [Event_Status],
 eventStatusDate AS [Status_Date],
 eventStartDate AS [Start_Date]
 
-FROM dbo.vwActiveEvents
+FROM Workflow.dbo.vwActiveEvents
 
 WHERE eventID = @eventID OR ISNULL(@eventID, -1) = -1
 "
@@ -33,7 +33,7 @@ applicationFilename AS [Filename],
 applicationDefaultParameter AS [Default_Parameter],
 applicationActive AS [Active]
 
-FROM vwApplications
+FROM Workflow.dbo.vwApplications
 
 WHERE applicationID = @applicationID OR ISNULL(@applicationID, -1) = -1
 "
@@ -54,7 +54,7 @@ actionConcurrency AS [Concurrency],
 actionLogOutput AS [Log_Output],
 applicationName AS [Application_Name]
 
-FROM vwActions
+FROM Workflow.dbo.vwActions
 
 WHERE actionID = @actionID OR ISNULL(@actionID, -1) = -1
 "
@@ -72,7 +72,7 @@ workflowDescription AS [Description],
 workflowActive AS [Active],
 scheduleName AS [Schedule_Name]
 
-FROM vwWorkflows
+FROM Workflow.dbo.vwWorkflows
 
 WHERE workflowID = @workflowID OR ISNULL(@workflowID, -1) = -1
 "
@@ -90,10 +90,10 @@ a.actionName AS [ActionName],
 stg.eventParameters AS [EventParameters],
 stg.continueAfterError AS [ContinueAfterError]
 
-FROM dbo.stage_WorkflowActions stg
-JOIN dbo.Workflows wf ON
+FROM Workflow.dbo.stage_WorkflowActions stg
+JOIN Workflow.dbo.Workflows wf ON
 	stg.workflowID = wf.workflowID
-LEFT JOIN dbo.Actions a ON
+LEFT JOIN Workflow.dbo.Actions a ON
 	stg.actionID = a.actionID
 
 WHERE wf.workflowName = @workflowName
@@ -109,8 +109,8 @@ ORDER BY stg.stepNumber
 SELECT
 COUNT(stg.stepNumber) AS [stepCount]
 
-FROM dbo.stage_WorkflowActions stg
-JOIN dbo.Workflows w ON
+FROM Workflow.dbo.stage_WorkflowActions stg
+JOIN Workflow.dbo.Workflows w ON
 	stg.workflowID = w.workflowID
 
 WHERE w.workflowName = @workflowName
@@ -132,7 +132,7 @@ CONVERT(datetime, scheduleRunTime) AS [Run_Time],
 recurrenceName AS [Recurrence_Name],
 recurrenceInterval AS [Recurrence_Interval]
 
-FROM vwSchedules
+FROM Workflow.dbo.vwSchedules
 
 WHERE scheduleID = @scheduleID OR ISNULL(@scheduleID, -1) = -1
 "
@@ -145,7 +145,7 @@ SELECT
 recurrenceID,
 recurrenceName
 
-FROM dbo.Recurrences
+FROM Workflow.dbo.Recurrences
 "
 	End Function
 #End Region
@@ -158,7 +158,7 @@ SELECT
 column_name,
 character_maximum_length AS max_length
 
-FROM INFORMATION_SCHEMA.COLUMNS
+FROM Workflow.INFORMATION_SCHEMA.COLUMNS
 
 WHERE table_schema = @schemaName
 AND table_name = @tableName

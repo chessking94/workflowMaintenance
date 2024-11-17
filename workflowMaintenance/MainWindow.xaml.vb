@@ -208,7 +208,7 @@ Partial Public Class MainWindow
             Using command As New SqlCommand
                 command.Connection = db_Connection
                 command.CommandType = CommandType.StoredProcedure
-                command.CommandText = "dbo.stageWorkflowActions"
+                command.CommandText = "Workflow.dbo.stageWorkflowActions"
                 command.Parameters.AddWithValue("@workflowName", combo_workflowName.SelectedValue)
                 command.ExecuteNonQuery()
 
@@ -282,7 +282,7 @@ Partial Public Class MainWindow
         Using command As New SqlCommand
             command.Connection = db_Connection
             command.CommandType = CommandType.StoredProcedure
-            command.CommandText = "dbo.createWorkflowActions"
+            command.CommandText = "Workflow.dbo.createWorkflowActions"
             command.Parameters.AddWithValue("@workflowName", combo_workflowName.SelectedValue)
 
             Dim rtnval As New SqlParameter("@ReturnValue", SqlDbType.Int)

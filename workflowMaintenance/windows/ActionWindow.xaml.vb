@@ -121,7 +121,7 @@ Partial Public Class ActionWindow
 
                 If actionID = 0 Then
                     'new action
-                    command.CommandText = "dbo.createAction"
+                    command.CommandText = "Workflow.dbo.createAction"
 
                     Dim rtnval As New SqlParameter("@ReturnValue", SqlDbType.Int)
                     rtnval.Direction = ParameterDirection.ReturnValue
@@ -149,7 +149,7 @@ Partial Public Class ActionWindow
                     End If
                 Else
                     'updating an existing application
-                    command.CommandText = "dbo.updateAction"
+                    command.CommandText = "Workflow.dbo.updateAction"
                     command.Parameters.AddWithValue("@actionID", actionID)
 
                     Dim rtnval As New SqlParameter("@ReturnValue", SqlDbType.Int)

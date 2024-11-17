@@ -191,7 +191,7 @@ Partial Public Class ScheduleWindow
 
                 If scheduleID = 0 Then
                     'new schedule
-                    command.CommandText = "dbo.createSchedule"
+                    command.CommandText = "Workflow.dbo.createSchedule"
 
                     Dim rtnval As New SqlParameter("@ReturnValue", SqlDbType.Int)
                     rtnval.Direction = ParameterDirection.ReturnValue
@@ -219,7 +219,7 @@ Partial Public Class ScheduleWindow
                     End If
                 Else
                     'updating an existing schedule
-                    command.CommandText = "dbo.updateSchedule"
+                    command.CommandText = "Workflow.dbo.updateSchedule"
                     command.Parameters.AddWithValue("@scheduleID", scheduleID)
 
                     Dim rtnval As New SqlParameter("@ReturnValue", SqlDbType.Int)

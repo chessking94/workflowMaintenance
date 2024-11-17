@@ -64,7 +64,7 @@ Partial Public Class WorkflowActionWindow
 
                 command.Parameters.Clear()
                 command.CommandType = CommandType.StoredProcedure
-                command.CommandText = "dbo.insertWorkflowAction"
+                command.CommandText = "Workflow.dbo.insertWorkflowAction"
                 command.Parameters.AddWithValue("@workflowName", workflowName)
                 command.Parameters.AddWithValue("@stepNumber", nextStepNumber)
 
@@ -144,7 +144,7 @@ Partial Public Class WorkflowActionWindow
             Using command As New SqlCommand
                 command.Connection = MainWindow.db_Connection
                 command.CommandType = CommandType.StoredProcedure
-                command.CommandText = "dbo.saveWorkflowAction"
+                command.CommandText = "Workflow.dbo.saveWorkflowAction"
                 command.Parameters.AddWithValue("@stagingKey", stagingKey)
                 command.Parameters.AddWithValue("@stepNumber", combo_stepNumber.SelectedValue)
                 command.Parameters.AddWithValue("@actionName", combo_actionName.SelectedValue)
@@ -161,7 +161,7 @@ Partial Public Class WorkflowActionWindow
         Using command As New SqlCommand
             command.Connection = MainWindow.db_Connection
             command.CommandType = CommandType.StoredProcedure
-            command.CommandText = "dbo.deleteWorkflowAction"
+            command.CommandText = "Workflow.dbo.deleteWorkflowAction"
             command.Parameters.AddWithValue("@stagingKey", stagingKey)
             command.ExecuteNonQuery()
         End Using
