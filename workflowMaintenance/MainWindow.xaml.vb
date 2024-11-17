@@ -5,7 +5,6 @@ Imports System.Windows.Forms
 Imports Microsoft.Data.SqlClient
 
 Partial Public Class MainWindow
-    Friend Shared myConfig As New Utilities_NetCore.clsConfig
     Friend Shared projectDir As String
     Friend Shared db_Connection As New SqlConnection
 
@@ -15,14 +14,17 @@ Partial Public Class MainWindow
     Private Sub WindowLoaded() Handles Me.Loaded
 #If DEBUG Then
         projectDir = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\.."))
+        Dim connectionString As String = Environment.GetEnvironmentVariable("ConnectionStringDebug")
 #Else
         projectDir = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ".."))
+        Dim connectionString As String = Environment.GetEnvironmentVariable("ConnectionStringRelease")
 #End If
-        Dim configFile As String = Path.Combine(projectDir, "appsettings.json")
-        myConfig.configFile = configFile
-
-        Dim connectionString As String = myConfig.getConfig("connectionString")
-        db_Connection = Utilities_NetCore.Connection(connectionString)
+        If connectionString Is Nothing Then
+            MessageBox.Show("Unable to read connection string", "Connection String Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Environment.Exit(-1)
+        Else
+            db_Connection = Utilities_NetCore.Connection(connectionString)
+        End If
     End Sub
 
     Private Sub WindowClosed() Handles Me.Closed
