@@ -14,9 +14,10 @@ eventStatus AS [Event_Status],
 eventStatusDate AS [Status_Date],
 eventStartDate AS [Start_Date]
 
-FROM Workflow.dbo.vwActiveEvents
+FROM Workflow.dbo.vwEvents
 
-WHERE eventID = @eventID OR ISNULL(@eventID, -1) = -1
+WHERE isTerminal = 0
+AND (eventID = @eventID OR ISNULL(@eventID, -1) = -1)
 "
 	End Function
 #End Region
