@@ -21,6 +21,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -34,6 +35,7 @@
             <Label x:Name="label_Filename" Content="Filename" HorizontalAlignment="Center"  Grid.Column="0" Grid.Row="3"/>
             <Label x:Name="label_DefaultParameter" Content="Default Parameter" HorizontalAlignment="Center"  Grid.Column="0" Grid.Row="4"/>
             <Label x:Name="label_Active" Content="Active" HorizontalAlignment="Center"  Grid.Column="0" Grid.Row="5"/>
+            <Label x:Name="label_Type" Content="Type" HorizontalAlignment="Center"  Grid.Column="0" Grid.Row="6"/>
         
             <TextBox x:Name="tb_ID" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="0" IsEnabled="False"/>
             <TextBox x:Name="tb_Name" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1"/>
@@ -41,6 +43,7 @@
             <TextBox x:Name="tb_Filename" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="3"/>
             <TextBox x:Name="tb_DefaultParameter" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="4"/>
             <CheckBox x:Name="cb_Active" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="5"/>
+            <ComboBox x:Name="combo_ApplicationType" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="6"/>
         </Grid>
 
         <Grid x:Name="grid_AppButtons" Background="#FFE5E5E5" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top">

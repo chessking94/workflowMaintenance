@@ -32,11 +32,23 @@ applicationName AS [Name],
 applicationDescription AS [Description],
 applicationFilename AS [Filename],
 applicationDefaultParameter AS [Default_Parameter],
-applicationActive AS [Active]
+applicationActive AS [Active],
+applicationType AS [Type]
 
 FROM Workflow.dbo.vwApplications
 
 WHERE applicationID = @applicationID OR ISNULL(@applicationID, -1) = -1
+"
+	End Function
+
+	Friend Function ApplicationTypes() As String
+		Return _
+"
+SELECT
+applicationTypeID,
+applicationType
+
+FROM Workflow.dbo.ApplicationTypes
 "
 	End Function
 #End Region

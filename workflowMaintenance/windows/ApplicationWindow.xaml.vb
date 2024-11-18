@@ -37,6 +37,18 @@ Partial Public Class ApplicationWindow
                 .Close()
             End With
 
+            Dim list_applicationTypes As New List(Of String) From {""}
+            command.Parameters.Clear()
+            command.CommandText = modQueries.ApplicationTypes()
+            With command.ExecuteReader
+                While .Read
+                    list_applicationTypes.Add(.GetString("applicationType"))
+                End While
+                .Close()
+            End With
+            list_applicationTypes.Sort()
+            combo_ApplicationType.ItemsSource = list_applicationTypes
+
             If applicationID = 0 Then
                 tb_ID.Text = "(new)"
             Else
@@ -52,6 +64,7 @@ Partial Public Class ApplicationWindow
                         tb_Filename.Text = .GetString("Filename")
                         tb_DefaultParameter.Text = If(.IsDBNull(.GetOrdinal("Default_Parameter")), "", .GetString("Default_Parameter"))
                         cb_Active.IsChecked = (.GetBoolean("Active") = True)
+                        combo_ApplicationType.SelectedValue = If(.IsDBNull(.GetOrdinal("Type")), "", .Item("Type"))
                     End While
                     .Close()
                 End With
@@ -100,6 +113,12 @@ Partial Public Class ApplicationWindow
             End If
         End If
 
+        If validationFailReason = "" Then
+            If combo_ApplicationType.SelectedValue Is Nothing Then
+                validationFailReason = "Type not selected"
+            End If
+        End If
+
         'perform create/update
         If validationFailReason <> "" Then
             MessageBox.Show($"Pre-validation failed: {validationFailReason}", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -112,6 +131,7 @@ Partial Public Class ApplicationWindow
                 command.Parameters.AddWithValue("@applicationFilename", tb_Filename.Text)
                 command.Parameters.AddWithValue("@applicationActive", If(cb_Active.IsChecked, 1, 0))
                 command.Parameters.AddWithValue("@applicationDefaultParameter", tb_DefaultParameter.Text)
+                command.Parameters.AddWithValue("@applicationType", If(combo_ApplicationType.SelectedValue = "", DBNull.Value, combo_ApplicationType.SelectedValue))
 
                 If applicationID = 0 Then
                     'new application
@@ -137,6 +157,8 @@ Partial Public Class ApplicationWindow
                                 MessageBox.Show("Unable to create application, missing description", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
                             Case -3
                                 MessageBox.Show("Unable to create application, missing filename", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                            Case -4
+                                MessageBox.Show("Unable to create application, missing type", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
                             Case Else
                                 MessageBox.Show("Unable to create application, unknown error", "Result", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         End Select

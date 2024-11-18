@@ -98,6 +98,7 @@
                                 <DataGridTextColumn Header="Filename" Binding="{Binding Filename}"/>
                                 <DataGridTextColumn Header="Default Parameter" Binding="{Binding Default_Parameter}"/>
                                 <DataGridCheckBoxColumn Header="Active" Binding="{Binding Active}"/>
+                                <DataGridTextColumn Header="Type" Binding="{Binding Type}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
