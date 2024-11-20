@@ -29,7 +29,7 @@ Partial Public Class ApplicationWindow
                         Case "applicationDescription"
                             tb_Description.MaxLength = .GetInt32("max_length")
                         Case "applicationFilename"
-                            tb_Filename.MaxLength = .GetInt32("max_length")
+                            tb_CallName.MaxLength = .GetInt32("max_length")
                         Case "applicationDefaultParameter"
                             tb_DefaultParameter.MaxLength = .GetInt32("max_length")
                     End Select
@@ -61,7 +61,7 @@ Partial Public Class ApplicationWindow
                         tb_ID.Text = .GetInt32("ID").ToString
                         tb_Name.Text = .GetString("Name")
                         tb_Description.Text = .GetString("Description")
-                        tb_Filename.Text = .GetString("Filename")
+                        tb_CallName.Text = .GetString("Filename")
                         tb_DefaultParameter.Text = If(.IsDBNull(.GetOrdinal("Default_Parameter")), "", .GetString("Default_Parameter"))
                         cb_Active.IsChecked = (.GetBoolean("Active") = True)
                         combo_ApplicationType.SelectedValue = If(.IsDBNull(.GetOrdinal("Type")), "", .Item("Type"))
@@ -78,13 +78,24 @@ Partial Public Class ApplicationWindow
         mainWindow.RefreshApplications()
     End Sub
 
+    Private Sub ApplicationTypeChanged() Handles combo_ApplicationType.SelectionChanged
+        If combo_ApplicationType.SelectedValue IsNot Nothing Then
+            Select Case combo_ApplicationType.SelectedValue
+                Case "Stored Procedure"
+                    label_CallName.Content = "Procedure Name (Database.Schema.Name)"
+                Case Else
+                    label_CallName.Content = "Filename"
+            End Select
+        End If
+    End Sub
+
     Private Sub SaveApplication() Handles btn_SaveApp.Click
         Dim validationFailReason As String = ""
 
         'cleanse data
         tb_Name.Text = tb_Name.Text.Trim()
         tb_Description.Text = tb_Description.Text.Trim()
-        tb_Filename.Text = tb_Filename.Text.Trim()
+        tb_CallName.Text = tb_CallName.Text.Trim()
         tb_DefaultParameter.Text = tb_DefaultParameter.Text.Trim()
 
         'validate data
@@ -102,13 +113,13 @@ Partial Public Class ApplicationWindow
 
         'this is looking on the machine running the app, doesn't work when the server actually running the events is different
         'If validationFailReason = "" Then
-        '    If Not IO.File.Exists(tb_Filename.Text) Then
-        '        validationFailReason = $"File '{tb_Filename.Text}' does not exist"
+        '    If Not IO.File.Exists(tb_CallName.Text) Then
+        '        validationFailReason = $"File '{tb_CallName.Text}' does not exist"
         '    End If
         'End If
 
         If validationFailReason = "" Then
-            If String.IsNullOrWhiteSpace(tb_Filename.Text) Then
+            If String.IsNullOrWhiteSpace(tb_CallName.Text) Then
                 validationFailReason = "Invalid filename"
             End If
         End If
@@ -128,7 +139,7 @@ Partial Public Class ApplicationWindow
                 command.CommandType = CommandType.StoredProcedure
                 command.Parameters.AddWithValue("@applicationName", tb_Name.Text)
                 command.Parameters.AddWithValue("@applicationDescription", tb_Description.Text)
-                command.Parameters.AddWithValue("@applicationFilename", tb_Filename.Text)
+                command.Parameters.AddWithValue("@applicationFilename", tb_CallName.Text)
                 command.Parameters.AddWithValue("@applicationActive", If(cb_Active.IsChecked, 1, 0))
                 command.Parameters.AddWithValue("@applicationDefaultParameter", tb_DefaultParameter.Text)
                 command.Parameters.AddWithValue("@applicationType", If(combo_ApplicationType.SelectedValue = "", DBNull.Value, combo_ApplicationType.SelectedValue))
