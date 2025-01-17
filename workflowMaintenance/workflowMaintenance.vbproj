@@ -30,10 +30,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Utilities_NetCore\Utilities_NetCore\Utilities_NetCore.vbproj" />
+    <PackageReference Include="Utilities_NetCore" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
