@@ -18,6 +18,8 @@ FROM Workflow.dbo.vwEvents
 
 WHERE isTerminal = 0
 AND (eventID = @eventID OR ISNULL(@eventID, -1) = -1)
+
+ORDER BY eventStartDate, workflowName, stepNumber
 "
 	End Function
 #End Region
